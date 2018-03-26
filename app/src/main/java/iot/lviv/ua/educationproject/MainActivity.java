@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CorruptionActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private List<CorruptionReport> corruptionReportList = new LinkedList<>();
 
@@ -20,7 +20,7 @@ public class CorruptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corruption);
 
-
+//Processing CORRUPTION reports
         TextView corruptionSend = (TextView) findViewById(R.id.corruption_send);
         corruptionSend.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -41,7 +41,7 @@ public class CorruptionActivity extends AppCompatActivity {
                 editText.setText("");
 
                 corruptionReportList.add(corruptionReport);
-                Toast.makeText(CorruptionActivity.this, "Thank you for your report!",
+                Toast.makeText(MainActivity.this, "Thank you for your report! <3",
                         Toast.LENGTH_LONG).show();
             }
         });

@@ -31,7 +31,7 @@ public class NavigationDrawer extends AppCompatActivity
         corruptionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent corruptionButtonIntent = new Intent(NavigationDrawer.this, CorruptionActivity.class);
+                Intent corruptionButtonIntent = new Intent(NavigationDrawer.this, MainActivity.class);
                 startActivity(corruptionButtonIntent);
             }
         });
