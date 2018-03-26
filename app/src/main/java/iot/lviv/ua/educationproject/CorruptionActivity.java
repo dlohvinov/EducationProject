@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +41,8 @@ public class CorruptionActivity extends AppCompatActivity {
                 editText.setText("");
 
                 corruptionReportList.add(corruptionReport);
+                Toast.makeText(CorruptionActivity.this, "Thank you for your report!",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
