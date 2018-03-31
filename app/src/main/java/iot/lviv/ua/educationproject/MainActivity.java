@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corruption);
 
-//Processing CORRUPTION reports
+        //Processing CORRUPTION reports
         TextView corruptionSend = (TextView) findViewById(R.id.corruption_send);
         corruptionSend.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
 
                 editText = (EditText) findViewById(R.id.corruption_lector);
-                corruptionReport.setLectorName(editText.getText().toString());
+                corruptionReport.setLecturerName(editText.getText().toString());
                 editText.setText("");
 
                 editText = (EditText) findViewById(R.id.corruption_text);

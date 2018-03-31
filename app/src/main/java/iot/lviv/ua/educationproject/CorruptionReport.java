@@ -6,7 +6,7 @@ package iot.lviv.ua.educationproject;
 
     public class CorruptionReport {
     private String studentName;
-    private String lectorName;
+    private String lecturerName;
     private String reportText;
 
     public String getStudentName() {
@@ -17,12 +17,12 @@ package iot.lviv.ua.educationproject;
         this.studentName = studentName;
     }
 
-    public String getLectorName() {
-        return lectorName;
+    public String getLecturerName() {
+        return lecturerName;
     }
 
-    public void setLectorName(String lectorName) {
-        this.lectorName = lectorName;
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
     }
 
     public String getReportText() {

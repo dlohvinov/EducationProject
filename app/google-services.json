@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "583264476619",
+    "firebase_url": "https://education-project-fe71c.firebaseio.com",
+    "project_id": "education-project-fe71c",
+    "storage_bucket": "education-project-fe71c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583264476619:android:24dc6fbac128891d",
+        "android_client_info": {
+          "package_name": "iot.lviv.ua.educationproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583264476619-m1hnd88kabh63k4ku1pb8cniq3sjmndh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iot.lviv.ua.educationproject",
+            "certificate_hash": "872fd2381af1809f097482fe477e91dab58a48ae"
+          }
+        },
+        {
+          "client_id": "583264476619-bm5c2nuuumefdqiigs4i1btn8ifq9rek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDObKihC-rryPOqavbDqoKgreIByAG_cKs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583264476619-bm5c2nuuumefdqiigs4i1btn8ifq9rek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
