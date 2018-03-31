@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +18,19 @@ public class MainActivity extends AppCompatActivity {
 
     private List<CorruptionReport> corruptionReportList = new LinkedList<>();
 
+    //Firebase variables
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference mDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corruption);
+
+        //Firebase init
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
+
 
         //Processing CORRUPTION reports
         TextView corruptionSend = (TextView) findViewById(R.id.corruption_send);
@@ -39,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 editText = (EditText) findViewById(R.id.corruption_text);
                 corruptionReport.setReportText(editText.getText().toString());
                 editText.setText("");
+
+                mDatabaseReference.child("CorruptionReports").push().setValue(corruptionReport);
 
                 corruptionReportList.add(corruptionReport);
                 Toast.makeText(MainActivity.this, "Thank you for your report! <3",
