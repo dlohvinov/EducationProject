@@ -19,17 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private List<CorruptionReport> corruptionReportList = new LinkedList<>();
 
     //Firebase variables
-    FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
+    FirebaseManager mFirebaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corruption);
-
-        //Firebase init
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference();
 
 
         //Processing CORRUPTION reports
@@ -52,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 corruptionReport.setReportText(editText.getText().toString());
                 editText.setText("");
 
-                mDatabaseReference.child("CorruptionReports").push().setValue(corruptionReport);
+                mFirebaseManager.sendCorruptionReport(corruptionReport);
 
                 corruptionReportList.add(corruptionReport);
                 Toast.makeText(MainActivity.this, "Thank you for your report! <3",
