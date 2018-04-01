@@ -20,7 +20,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_navigation_drawer"
-        app:menu="@menu/activity_navigation_drawer_drawer">
+        app:menu="@menu/left_pane_menu_options">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:textAllCaps="true" />
         </RelativeLayout>
 
-
     </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>
