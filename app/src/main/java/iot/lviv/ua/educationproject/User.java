@@ -2,8 +2,8 @@ package iot.lviv.ua.educationproject;
 
 public class User {
 
-    private String firstName = null;
-    private String lastName = null;
+    private String firstName;
+    private String lastName;
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
