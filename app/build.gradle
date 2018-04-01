@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "iot.lviv.ua.educationproject"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,8 @@ dependencies {
     //Firebase plugins
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.google.firebase:firebase-auth:12.0.1'
+    implementation 'com.firebaseui:firebase-ui-auth:3.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
