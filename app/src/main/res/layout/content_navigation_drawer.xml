@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="iot.lviv.ua.educationproject.MainActivity"
-    tools:showIn="@layout/app_bar_navigation_drawer">
+    tools:showIn="@layout/app_bar_navigation_drawer"
+    android:id="@+id/content_navigation_drawer_view">
 
 </android.support.constraint.ConstraintLayout>

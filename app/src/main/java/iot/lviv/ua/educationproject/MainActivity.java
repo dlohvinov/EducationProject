@@ -1,6 +1,6 @@
 package iot.lviv.ua.educationproject;
 
-import android.content.Intent;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,11 +27,19 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         //starting CORRUPTION activity
         TextView corruptionButton = findViewById(R.id.corruption_button);
         corruptionButton.setOnClickListener(view -> {
-            Intent corruptionButtonIntent = new Intent(MainActivity.this, BlankContainerActivity.class);
-            startActivity(corruptionButtonIntent);
+            CorruptionFragment corruptionFragment = new CorruptionFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.content_navigation_drawer_view, corruptionFragment)
+                    .addToBackStack(null).commit();
+
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            }
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);

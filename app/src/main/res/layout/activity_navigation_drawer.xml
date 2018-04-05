@@ -30,13 +30,13 @@
                 android:id="@+id/corruption_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="530dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="530dp"
+                android:gravity="center"
                 android:text="corruption"
                 android:textAllCaps="true" />
         </RelativeLayout>

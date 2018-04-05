@@ -7,7 +7,6 @@ public class Student extends User {
     public Student(String firstName, String lastName, String numberOfGroup) {
         super(firstName, lastName);
         this.numberOfGroup = numberOfGroup;
-
     }
 
     public String getNumberOfGroup() {
