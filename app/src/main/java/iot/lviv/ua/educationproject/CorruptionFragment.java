@@ -14,6 +14,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
     View mCorruptionView;
     View mCorruptionSendButton;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -30,23 +31,44 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
+        EditText studentName = mCorruptionView.findViewById(R.id.corruption_student);
+        EditText lectorName = mCorruptionView.findViewById(R.id.corruption_lector);
+        EditText corruptionText = mCorruptionView.findViewById(R.id.corruption_text);
+
         CorruptionReport corruptionReport = new CorruptionReport();
 
-        EditText editText = mCorruptionView.findViewById(R.id.corruption_student);
-        corruptionReport.setStudentName(editText.getText().toString());
-        editText.setText("");
+        if (studentName.getText().toString().length() > 10) {
+            if (lectorName.getText().toString().length() > 10) {
+                if (corruptionText.getText().toString().length() > 80) {
 
-        editText = mCorruptionView.findViewById(R.id.corruption_lector);
-        corruptionReport.setLecturerName(editText.getText().toString());
-        editText.setText("");
+                    corruptionReport.setStudentName(studentName.getText().toString());
+                    studentName.setText("");
+                    corruptionReport.setLecturerName(lectorName.getText().toString());
+                    lectorName.setText("");
+                    corruptionReport.setReportText(corruptionText.getText().toString());
+                    corruptionText.setText("");
 
-        editText = mCorruptionView.findViewById(R.id.corruption_text);
-        corruptionReport.setReportText(editText.getText().toString());
-        editText.setText("");
+                } else {
+                    corruptionText.requestFocus();
+                    Toast.makeText(getActivity(), "Corruption text field is too short!",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+            } else {
+                lectorName.requestFocus();
+                Toast.makeText(getActivity(), "Lector's name field is too short!",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+        } else {
+            studentName.requestFocus();
+            Toast.makeText(getActivity(), "Your name field is too short!",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Toast.makeText(getActivity(), "Thank you for your report! <3",
                 Toast.LENGTH_LONG).show();
 
     }
-
 }
