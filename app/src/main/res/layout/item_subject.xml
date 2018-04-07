@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/item_subject"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical"
