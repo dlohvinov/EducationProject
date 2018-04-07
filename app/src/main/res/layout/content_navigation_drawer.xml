@@ -9,4 +9,11 @@
     tools:showIn="@layout/app_bar_navigation_drawer"
     android:id="@+id/content_navigation_drawer_view">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/subjectListView">
+
+    </ListView>
+
 </android.support.constraint.ConstraintLayout>

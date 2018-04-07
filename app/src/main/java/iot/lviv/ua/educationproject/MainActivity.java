@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -60,11 +62,28 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        //Attaching SUBLECTS LIST Adapter to a ListView content_navigation_drawer.xml
+        ArrayList<Subject> subjectList = new ArrayList<Subject>();
+        SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjectList);
+
+        ListView subjectListView = (ListView) findViewById(R.id.subjectListView);
+        subjectListView.setAdapter(subjectsAdapter);
+
+        //TODO: add subjects from Firebase and delete this template
+        Subject subject1 = new Subject();
+        Subject subject2 = new Subject();
+        subject1.setName("Math Analysis");
+        subjectList.add(subject1);
+        subject2.setName("Physics");
+        subjectList.add(subject2);
+
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -113,7 +132,6 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.options_items, menu);
         return true;
     }
-
 
 
     @Override
@@ -190,8 +208,8 @@ public class MainActivity extends AppCompatActivity
      */
     private void setNavHeader() {
 
-        if(mUser == null) {
-            Toast.makeText(this,"No User", Toast.LENGTH_SHORT).show();
+        if (mUser == null) {
+            Toast.makeText(this, "No User", Toast.LENGTH_SHORT).show();
         } else {
             //Setting user avatar
             if (mUser.getPhotoUrl() != null) {
