@@ -1,6 +1,10 @@
 package iot.lviv.ua.educationproject;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +52,13 @@ public class SubjectsAdapter extends ArrayAdapter<Subject>{
         itemSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "list of classes goes here!", Toast.LENGTH_SHORT).show();
+//
+//                ClassFragment classFragment = new ClassFragment();
+//                FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer_view,
+//                        classFragment).addToBackStack(null).commit();
+
+//                Toast.makeText(getContext(), "list of classes goes here!", Toast.LENGTH_SHORT).show();
             }
         });
 

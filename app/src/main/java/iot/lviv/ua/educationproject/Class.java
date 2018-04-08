@@ -6,9 +6,9 @@ package iot.lviv.ua.educationproject;
 
 public class Class {
     private String typeOfClass;
-    private int positiveRate;
-    private int negativeRate;
-    private int neutralRate;
+    private boolean positiveRate;
+    private boolean negativeRate;
+    private boolean neutralRate;
 
     public String getTypeOfClass() {
         return typeOfClass;
@@ -18,27 +18,27 @@ public class Class {
         this.typeOfClass = typeOfClass;
     }
 
-    public int getPositiveRate() {
+    public boolean isPositiveRate() {
         return positiveRate;
     }
 
-    public void setPositiveRate(int positiveRate) {
+    public void setPositiveRate(boolean positiveRate) {
         this.positiveRate = positiveRate;
     }
 
-    public int getNegativeRate() {
+    public boolean isNegativeRate() {
         return negativeRate;
     }
 
-    public void setNegativeRate(int negativeRate) {
+    public void setNegativeRate(boolean negativeRate) {
         this.negativeRate = negativeRate;
     }
 
-    public int getNeutralRate() {
+    public boolean isNeutralRate() {
         return neutralRate;
     }
 
-    public void setNeutralRate(int neutralRate) {
+    public void setNeutralRate(boolean neutralRate) {
         this.neutralRate = neutralRate;
     }
 }
