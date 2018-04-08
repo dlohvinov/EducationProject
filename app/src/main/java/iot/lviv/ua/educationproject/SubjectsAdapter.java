@@ -52,11 +52,11 @@ public class SubjectsAdapter extends ArrayAdapter<Subject>{
         itemSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                ClassFragment classFragment = new ClassFragment();
-//                FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer_view,
-//                        classFragment).addToBackStack(null).commit();
+
+                ClassFragment classFragment = new ClassFragment();
+                FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer_view,
+                        classFragment).addToBackStack(null).commit();
 
 //                Toast.makeText(getContext(), "list of classes goes here!", Toast.LENGTH_SHORT).show();
             }

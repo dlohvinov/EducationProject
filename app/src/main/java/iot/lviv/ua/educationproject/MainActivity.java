@@ -64,26 +64,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //starting CLASSES fragment
-/**
-        LinearLayout itemSubject = (LinearLayout) findViewById(R.id.item_subject);
-        itemSubject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ClassFragment classFragment = new ClassFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer_view,
-                        classFragment).addToBackStack(null).commit();
-
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.closeDrawer(GravityCompat.START);
-                }
-            }
-        });
-*/
-
 //        attaching SUBJECTS LIST Adapter to a ListView activity_subjects.xml
         ArrayList<Subject> subjectList = new ArrayList<Subject>();
         SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjectList);
@@ -99,23 +79,7 @@ public class MainActivity extends AppCompatActivity
         subject2.setName("Physics");
         subjectList.add(subject2);
 
-
-
-//        //attaching CLASSES LIST Adapter to a ListView fragment_classes.xml
-//        ArrayList<Class> classList = new ArrayList<Class>();
-//        ClassesAdapter classesAdapter = new ClassesAdapter(this, classList);
-//
-//        ListView classListView = (ListView) findViewById(R.id.class_list_view);
-//        classListView.setAdapter(classesAdapter);
-//
-//        //TODO: add classes from Firebase and delete this template
-//        Class eduClass1 = new Class();
-//        Class eduClass2 = new Class();
-//        eduClass1.setTypeOfClass("lecture 1");
-//        classList.add(eduClass1);
-//        eduClass2.setTypeOfClass("practice 1");
-//        classList.add(eduClass2);
-
+        
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
