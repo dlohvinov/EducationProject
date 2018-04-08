@@ -10,9 +10,9 @@ package iot.lviv.ua.educationproject;
 public class Subject {
     private String name;
 
-    private int positiveRates;
-    private int negativeRates;
-    private int neutralRates;
+    private int numOfPositiveRates;
+    private int numOfNegativeRates;
+    private int numOfNeutralRates;
 
 
     public String getName() {
@@ -23,27 +23,27 @@ public class Subject {
         this.name = name;
     }
 
-    public int getPositiveRates() {
-        return positiveRates;
+    public int getNumOfPositiveRates() {
+        return numOfPositiveRates;
     }
 
-    public void setPositiveRates(int positiveRates) {
-        this.positiveRates = positiveRates;
+    public void setNumOfPositiveRates(int numOfPositiveRates) {
+        this.numOfPositiveRates = numOfPositiveRates;
     }
 
-    public int getNegativeRates() {
-        return negativeRates;
+    public int getNumOfNegativeRates() {
+        return numOfNegativeRates;
     }
 
-    public void setNegativeRates(int negativeRates) {
-        this.negativeRates = negativeRates;
+    public void setNumOfNegativeRates(int numOfNegativeRates) {
+        this.numOfNegativeRates = numOfNegativeRates;
     }
 
-    public int getNeutralRates() {
-        return neutralRates;
+    public int getNumOfNeutralRates() {
+        return numOfNeutralRates;
     }
 
-    public void setNeutralRates(int neutralRates) {
-        this.neutralRates = neutralRates;
+    public void setNumOfNeutralRates(int numOfNeutralRates) {
+        this.numOfNeutralRates = numOfNeutralRates;
     }
 }
