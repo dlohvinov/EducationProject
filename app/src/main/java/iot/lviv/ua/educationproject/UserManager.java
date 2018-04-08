@@ -6,12 +6,7 @@ package iot.lviv.ua.educationproject;
 
 public class UserManager {
 
-    public void createClusterRepresentative(String firstName, String lastName){
-        
-    }
-
     public void createStudent(String firstName, String lastName, String numberOfGroup){
-        Student student = new Student(firstName, lastName, numberOfGroup
-        );
+        Student student = new Student(firstName, lastName, numberOfGroup);
     }
 }

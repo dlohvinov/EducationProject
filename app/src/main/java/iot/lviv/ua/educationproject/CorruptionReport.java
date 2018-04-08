@@ -8,6 +8,7 @@ package iot.lviv.ua.educationproject;
     private String studentName;
     private String lecturerName;
     private String reportText;
+    private String dataAndTime;
 
     public String getStudentName() {
         return studentName;
@@ -31,5 +32,13 @@ package iot.lviv.ua.educationproject;
 
     public void setReportText(String reportText) {
         this.reportText = reportText;
+    }
+
+    public String getDataAndTime() {
+        return dataAndTime;
+    }
+
+    public void setDataAndTime(String dataAndTime) {
+        this.dataAndTime = dataAndTime;
     }
 }
