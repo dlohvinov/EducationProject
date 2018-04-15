@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.NavigationView;
@@ -36,9 +37,11 @@ public class MainActivity extends AppCompatActivity
 
     public final int RC_SIGN_IN = 1;
 
-    FirebaseUser mUser;
-    FirebaseAuth mFirebaseAuth;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseUser mUser;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    private NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +68,10 @@ public class MainActivity extends AppCompatActivity
         });
 
 //        attaching SUBJECTS LIST Adapter to a ListView activity_subjects.xml
-        ArrayList<Subject> subjectList = new ArrayList<Subject>();
+        ArrayList<Subject> subjectList = new ArrayList<>();
         SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjectList);
 
-        ListView subjectListView = (ListView) findViewById(R.id.subject_list_view);
+        ListView subjectListView = findViewById(R.id.subject_list_view);
         subjectListView.setAdapter(subjectsAdapter);
 
         //TODO: add subjects from Firebase and delete this template
@@ -91,17 +94,18 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
-        mAuthStateListener = (FirebaseAuth firebaseAuth) -> {
+        mAuthStateListener = firebaseAuth -> {
             mUser = firebaseAuth.getCurrentUser();
             if (mUser != null) {
                 //user is signed in
-                Toast.makeText(this, "You're signed in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You're signed in", Toast.LENGTH_SHORT).show();
+                setNavHeader();
             } else {
                 // user is signed out
-                Toast.makeText(this, "You're signed out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You're signed out", Toast.LENGTH_SHORT).show();
                 MainActivity.this.startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
@@ -118,7 +122,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
+
+
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -189,7 +194,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         mUser = mFirebaseAuth.getCurrentUser();
-
         setNavHeader();
     }
 
@@ -205,8 +209,9 @@ public class MainActivity extends AppCompatActivity
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
+
     /**
-     * method to set the appearence of navigation header
+     * method to set the appearance of navigation header
      */
     private void setNavHeader() {
 
@@ -215,18 +220,17 @@ public class MainActivity extends AppCompatActivity
         } else {
             //Setting user avatar
             if (mUser.getPhotoUrl() != null) {
-                ImageView avatar = findViewById(R.id.user_icon);
-//                avatar.setImageURI(mUser.getPhotoUrl());
+                ImageView avatar = mNavigationView.getHeaderView(0).findViewById(R.id.user_icon);
                 Context context = avatar.getContext();
                 Picasso.with(context).load(mUser.getPhotoUrl()).into(avatar);
             }
 
             //Setting user name
-            TextView username = findViewById(R.id.username_text_view);
+            TextView username = mNavigationView.getHeaderView(0).findViewById(R.id.username_text_view);
             username.setText(mUser.getDisplayName());
 
             //Setting User email
-            TextView email = findViewById(R.id.email_text_view);
+            TextView email = mNavigationView.getHeaderView(0).findViewById(R.id.email_text_view);
             email.setText(mUser.getEmail());
         }
     }
