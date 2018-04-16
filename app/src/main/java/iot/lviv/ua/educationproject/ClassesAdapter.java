@@ -40,49 +40,6 @@ public class ClassesAdapter extends ArrayAdapter<Class>{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView positiveRate = (TextView) convertView.findViewById(R.id.positive_rate);
-        TextView neutralRate = (TextView) convertView.findViewById(R.id.neutral_rate);
-        TextView negativeRate = (TextView) convertView.findViewById(R.id.negative_rate);
-        positiveRate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                eduClass.setPositiveRate(true);
-                eduClass.setNeutralRate(false);
-                eduClass.setNegativeRate(false);
-                positiveRate.setBackgroundColor(Color.GREEN);
-
-                positiveRate.setEnabled(false);
-                neutralRate.setEnabled(false);
-                negativeRate.setEnabled(false);
-            }
-        });
-        neutralRate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                eduClass.setPositiveRate(false);
-                eduClass.setNeutralRate(true);
-                eduClass.setNegativeRate(false);
-                neutralRate.setBackgroundColor(Color.GRAY);
-
-                positiveRate.setEnabled(false);
-                neutralRate.setEnabled(false);
-                negativeRate.setEnabled(false);
-            }
-        });
-        negativeRate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                eduClass.setPositiveRate(false);
-                eduClass.setNeutralRate(false);
-                eduClass.setNegativeRate(true);
-                negativeRate.setBackgroundColor(Color.RED);
-
-                positiveRate.setEnabled(false);
-                neutralRate.setEnabled(false);
-                negativeRate.setEnabled(false);
-            }
-        });
-
         viewHolder.typeOfClass.setText(eduClass.getTypeOfClass());
         return convertView;
     }
