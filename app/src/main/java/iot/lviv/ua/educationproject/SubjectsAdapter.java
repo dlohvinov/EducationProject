@@ -55,10 +55,9 @@ public class SubjectsAdapter extends ArrayAdapter<Subject>{
 
                 ClassFragment classFragment = new ClassFragment();
                 FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer_view,
+                fragmentManager.beginTransaction().replace(R.id.place_holder,
                         classFragment).addToBackStack(null).commit();
 
-//                Toast.makeText(getContext(), "list of classes goes here!", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -27,8 +27,6 @@ public class ClassFragment extends Fragment implements View.OnClickListener{
 
         mClassView = inflater.inflate(R.layout.fragment_classes, container, false);
 
-
-
         return mClassView;
     }
 

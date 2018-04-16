@@ -9,10 +9,9 @@
     tools:showIn="@layout/app_bar_navigation_drawer"
     android:id="@+id/content_navigation_drawer_view">
 
-    <ListView
+    <FrameLayout
+        android:id="@+id/place_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/subject_list_view">
+        android:layout_height="match_parent"/>
 
-    </ListView>
 </android.support.constraint.ConstraintLayout>

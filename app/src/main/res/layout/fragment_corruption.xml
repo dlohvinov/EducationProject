@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="iot.lviv.ua.educationproject.MainActivity"
-    android:background="@android:color/white"
     android:id="@+id/corruption_fragment">
 
 
