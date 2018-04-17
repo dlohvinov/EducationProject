@@ -56,7 +56,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
                 }
             } else {
                 lectorName.requestFocus();
-                Toast.makeText(getActivity(), "Lector's name field is too short!",
+                Toast.makeText(getActivity(), "Lecturer's name field is too short!",
                         Toast.LENGTH_LONG).show();
                 return;
             }
