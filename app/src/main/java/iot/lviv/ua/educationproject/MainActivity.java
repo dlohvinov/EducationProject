@@ -49,13 +49,17 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        FragmentManager fragmentManager = getFragmentManager();
+
+        SubjectFragment subjectFragment = new SubjectFragment();
+        fragmentManager.beginTransaction().replace(R.id.place_holder, subjectFragment)
+                .addToBackStack(null).commit();
 
         //starting CORRUPTION activity
         TextView corruptionButton = findViewById(R.id.corruption_button);
         corruptionButton.setOnClickListener(view -> {
             CorruptionFragment corruptionFragment = new CorruptionFragment();
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.content_navigation_drawer_view, corruptionFragment)
+            fragmentManager.beginTransaction().replace(R.id.place_holder, corruptionFragment)
                     .addToBackStack(null).commit();
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -63,23 +67,6 @@ public class MainActivity extends AppCompatActivity
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
-
-//        attaching SUBJECTS LIST Adapter to a ListView activity_subjects.xml
-        ArrayList<Subject> subjectList = new ArrayList<Subject>();
-        SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjectList);
-
-        ListView subjectListView = (ListView) findViewById(R.id.subject_list_view);
-        subjectListView.setAdapter(subjectsAdapter);
-
-        //TODO: add subjects from Firebase and delete this template
-        Subject subject1 = new Subject();
-        Subject subject2 = new Subject();
-        subject1.setName("Math Analysis");
-        subjectList.add(subject1);
-        subject2.setName("Physics");
-        subjectList.add(subject2);
-
-        
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
