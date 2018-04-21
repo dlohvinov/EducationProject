@@ -10,7 +10,7 @@ public class Rate {
     private int lectureRate;
     private int practiceRate;
     private int laboratoryRate;
-    //date
+    //TODO: ADD A DATE
 
 
     public int getSubjectId() {

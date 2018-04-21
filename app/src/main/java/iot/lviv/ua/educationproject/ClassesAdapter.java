@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,18 +17,18 @@ import java.util.ArrayList;
  */
 
 
-public class ClassesAdapter extends ArrayAdapter<String>{
+public class ClassesAdapter extends ArrayAdapter<ClassType>{
     private static class ViewHolder{
         TextView typeOfClass;
     }
 
-    public ClassesAdapter(Context context, ArrayList<String> classList){
+    public ClassesAdapter(Context context, ArrayList<ClassType> classList){
         super(context, R.layout.item_class, classList);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        String eduClass = getItem(position);
+        ClassType classType = getItem(position);
         ViewHolder viewHolder;
 
         if (convertView == null){
@@ -39,8 +40,16 @@ public class ClassesAdapter extends ArrayAdapter<String>{
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        viewHolder.typeOfClass.setText(classType.toString().toLowerCase());
 
-        viewHolder.typeOfClass.setText(eduClass);
+        TextView sendRate = (TextView) convertView.findViewById(R.id.seek_bar_send);
+        sendRate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return convertView;
     }
 }

@@ -50,9 +50,9 @@ public class SubjectsAdapter extends ArrayAdapter<Subject>{
         //making layout a button
         LinearLayout itemSubject = (LinearLayout) convertView.findViewById(R.id.item_subject);
         itemSubject.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
                 ClassFragment classFragment = new ClassFragment();
                 FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.place_holder,

@@ -9,10 +9,15 @@ package iot.lviv.ua.educationproject;
 //Havent ended because of abscence of scale logic
 public class Subject {
     private String name;
+    private int id;
 
-    private int numOfPositiveRates;
-    private int numOfNegativeRates;
-    private int numOfNeutralRates;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
     public String getName() {
@@ -23,27 +28,4 @@ public class Subject {
         this.name = name;
     }
 
-    public int getNumOfPositiveRates() {
-        return numOfPositiveRates;
-    }
-
-    public void setNumOfPositiveRates(int numOfPositiveRates) {
-        this.numOfPositiveRates = numOfPositiveRates;
-    }
-
-    public int getNumOfNegativeRates() {
-        return numOfNegativeRates;
-    }
-
-    public void setNumOfNegativeRates(int numOfNegativeRates) {
-        this.numOfNegativeRates = numOfNegativeRates;
-    }
-
-    public int getNumOfNeutralRates() {
-        return numOfNeutralRates;
-    }
-
-    public void setNumOfNeutralRates(int numOfNeutralRates) {
-        this.numOfNeutralRates = numOfNeutralRates;
-    }
 }
