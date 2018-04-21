@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,11 +43,21 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
         }
         viewHolder.typeOfClass.setText(classType.toString().toLowerCase());
 
+
+
         TextView sendRate = (TextView) convertView.findViewById(R.id.seek_bar_send);
         sendRate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
+                switch (classType) {
+                    case LECTURE:
+                        Toast.makeText(getContext(), "wow", Toast.LENGTH_SHORT).show();
+                    case PRACTICE:
+                        Toast.makeText(getContext(), "such", Toast.LENGTH_SHORT).show();
+                    case LAB:
+                        Toast.makeText(getContext(), "goes", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
