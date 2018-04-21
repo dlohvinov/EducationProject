@@ -16,18 +16,18 @@ import java.util.ArrayList;
  */
 
 
-public class ClassesAdapter extends ArrayAdapter<Class>{
+public class ClassesAdapter extends ArrayAdapter<String>{
     private static class ViewHolder{
         TextView typeOfClass;
     }
 
-    public ClassesAdapter(Context context, ArrayList<Class> classList){
+    public ClassesAdapter(Context context, ArrayList<String> classList){
         super(context, R.layout.item_class, classList);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        Class eduClass = getItem(position);
+        String eduClass = getItem(position);
         ViewHolder viewHolder;
 
         if (convertView == null){
@@ -40,7 +40,7 @@ public class ClassesAdapter extends ArrayAdapter<Class>{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.typeOfClass.setText(eduClass.getTypeOfClass());
+        viewHolder.typeOfClass.setText(eduClass);
         return convertView;
     }
 }
