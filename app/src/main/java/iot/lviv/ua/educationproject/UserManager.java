@@ -8,10 +8,6 @@ public class UserManager {
 
     private static UserManager userManager;
 
-    public void createStudent(String firstName, String lastName, String numberOfGroup){
-        Student student = new Student(firstName, lastName, numberOfGroup);
-    }
-    
     private UserManager(){}
 
     public static UserManager getInstance() {
@@ -21,5 +17,13 @@ public class UserManager {
         } else {
             return userManager;
         }
+    }
+
+    public void pushStudentToDatabase(Student student) {
+        FirebaseManager.getInstance().getRootDatabaseReference().push().child("Users").child("Students").setValue(student);
+    }
+
+    public void pushEducatorToDatabase(Educator educator) {
+        FirebaseManager.getInstance().getRootDatabaseReference().push().child("Users").child("Cluster").setValue(educator);
     }
 }

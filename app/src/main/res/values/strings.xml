@@ -7,4 +7,14 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_sign_out">Sign Out</string>
+
+    <string name="registration_greeting">One more step…</string>
+
+    <string-array name="group_list">
+        <item>IP-11</item>
+        <item>IP-12</item>
+        <item>IP-13</item>
+        <item>IP-21</item>
+        <item>IP-22</item>
+    </string-array>
 </resources>

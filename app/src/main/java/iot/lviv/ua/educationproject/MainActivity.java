@@ -31,11 +31,13 @@ public class MainActivity extends AppCompatActivity
 
     public final int RC_SIGN_IN = 1;
 
-    FirebaseUser mUser;
-    FirebaseAuth mFirebaseAuth;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
-    FragmentManager fragmentManager;
-    SubjectFragment subjectFragment;
+    private User mUser;
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FragmentManager fragmentManager;
+    private SubjectFragment subjectFragment;
+    private UserManager mUserManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-
+        mUserManager = UserManager.getInstance();
         fragmentManager = getFragmentManager();
 
         subjectFragment = new SubjectFragment();
@@ -67,8 +69,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mAuthStateListener = (FirebaseAuth firebaseAuth) -> {
-            mUser = firebaseAuth.getCurrentUser();
-            if (mUser != null) {
+            mFirebaseUser = firebaseAuth.getCurrentUser();
+            if (mFirebaseUser != null) {
                 //user is signed in
                 Toast.makeText(this, "You're signed in", Toast.LENGTH_SHORT).show();
             } else {
@@ -152,13 +154,15 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
+//                mUser = new User(mFirebaseUser.getDisplayName(), mFirebaseUser.getUid());
+//                mUserManager.pushStudentToDatabase(mUser);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
 
-        mUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         setNavHeader();
     }
@@ -180,24 +184,24 @@ public class MainActivity extends AppCompatActivity
      */
     private void setNavHeader() {
 
-        if (mUser == null) {
+        if (mFirebaseUser == null) {
             Toast.makeText(this, "No User", Toast.LENGTH_SHORT).show();
         } else {
             //Setting user avatar
-            if (mUser.getPhotoUrl() != null) {
+            if (mFirebaseUser.getPhotoUrl() != null) {
                 ImageView avatar = findViewById(R.id.user_icon);
-//                avatar.setImageURI(mUser.getPhotoUrl());
+//                avatar.setImageURI(mFirebaseUser.getPhotoUrl());
                 Context context = avatar.getContext();
-                Picasso.with(context).load(mUser.getPhotoUrl()).into(avatar);
+                Picasso.with(context).load(mFirebaseUser.getPhotoUrl()).into(avatar);
             }
 
             //Setting user name
             TextView username = findViewById(R.id.username_text_view);
-            username.setText(mUser.getDisplayName());
+            username.setText(mFirebaseUser.getDisplayName());
 
             //Setting User email
             TextView email = findViewById(R.id.email_text_view);
-            email.setText(mUser.getEmail());
+            email.setText(mFirebaseUser.getEmail());
         }
     }
 

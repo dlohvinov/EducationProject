@@ -46,4 +46,11 @@ public class FirebaseManager {
         mDatabaseReference.push().setValue(corruptionReport);
     }
 
+    public FirebaseDatabase getFirebaseDatabase() {
+        return mFirebaseDatabase;
+    }
+
+    public DatabaseReference getRootDatabaseReference() {
+        return mDatabaseReference;
+    }
 }

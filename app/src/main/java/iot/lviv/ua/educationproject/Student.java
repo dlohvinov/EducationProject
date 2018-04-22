@@ -4,8 +4,8 @@ public class Student extends User {
 
     private String numberOfGroup;
 
-    public Student(String firstName, String lastName, String numberOfGroup) {
-        super(firstName, lastName);
+    public Student(String displayName, String uid, String numberOfGroup) {
+        super(displayName, uid);
         this.numberOfGroup = numberOfGroup;
     }
 
