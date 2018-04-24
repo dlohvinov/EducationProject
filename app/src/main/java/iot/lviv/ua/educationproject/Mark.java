@@ -5,9 +5,9 @@ package iot.lviv.ua.educationproject;
  */
 
 public class Mark {
-    public String mark;
-    public String userId;
-    public String subject;
+    private String mark;
+    private String userId;
+    private String subject;
 
     public Mark() {
     }
