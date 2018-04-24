@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FirebaseManager.getInstance().loadDataBase(); //Цей метод потрібен на деякий час
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mUserManager = UserManager.getInstance();
         fragmentManager = getFragmentManager();
