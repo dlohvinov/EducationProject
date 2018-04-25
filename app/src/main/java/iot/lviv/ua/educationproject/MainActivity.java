@@ -132,10 +132,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_corruption) {
-            //starting CORRUPTION activity
+            //starting CORRUPTION fragment
             CorruptionFragment corruptionFragment = new CorruptionFragment();
-
             fragmentManager.beginTransaction().replace(R.id.place_holder, corruptionFragment)
+                    .addToBackStack(null).commit();
+        } else if (id == R.id.nav_corruption_list){
+            CorruptionListFragment corruptionListFragment = new CorruptionListFragment();
+            fragmentManager.beginTransaction().replace(R.id.place_holder, corruptionListFragment)
                     .addToBackStack(null).commit();
         } else if (id == R.id.nav_elections) {
         } else if (id == R.id.nav_subjects) {

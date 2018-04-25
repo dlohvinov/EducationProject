@@ -17,6 +17,11 @@
             android:title="Корупція"
             android:icon="@drawable/police"
             />
+        <item
+            android:id="@+id/nav_corruption_list"
+            android:title="Корупція(Список)"
+            android:icon="@drawable/police"
+            />
     </group>
 
     <item android:title="Other:">
