@@ -12,6 +12,8 @@ public class Rate {
     private int laboratoryRate;
     //TODO: ADD A DATE
 
+    public Rate() {
+    }
 
     public int getSubjectId() {
         return subjectId;

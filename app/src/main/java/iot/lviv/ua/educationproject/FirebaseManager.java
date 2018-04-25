@@ -31,7 +31,7 @@ public class FirebaseManager {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    List <Mark> marks = null;
+    List <Rate> rates = null;
 
     private FirebaseManager() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -54,16 +54,16 @@ public class FirebaseManager {
         mDatabaseReference.child("CorruptionReports").push().setValue(corruptionReport);
     }
 
-    public void sendMark(Mark mark){
-        mDatabaseReference.child("Groups").child("Group").child("Evaluation").child("Period").push().setValue(mark);
+    public void sendRate(Rate rate){
+        mDatabaseReference.child("Groups").child("Group").child("Evaluation").child("Period").push().setValue(rate);
     }
 
-    public List<Mark> getMarks(){
+    public List<Rate> getRates(){
 
-        if (marks == null){
-            return getMarks();
+        if (rates == null){
+            return getRates();
         }else {
-            return marks;
+            return rates;
         }
     }
 
@@ -71,10 +71,10 @@ public class FirebaseManager {
         mDatabaseReference.child("Groups").child("Group").child("Evaluation").child("Period").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                marks = new ArrayList<>();
+                rates = new ArrayList<>();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Mark mark = postSnapshot.getValue(Mark.class);
-                    marks.add(mark);
+                    Rate rate = postSnapshot.getValue(Rate.class);
+                    rates.add(rate);
                 }
             }
 
