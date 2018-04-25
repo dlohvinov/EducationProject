@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -45,7 +48,29 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
 
 
 
+        SeekBar seekBar = (SeekBar) convertView.findViewById(R.id.seek_bar_item_class);
+        TextView seekBarNum = (TextView) convertView.findViewById(R.id.seek_bar_num);
+        {
+            seekBarNum.setText(seekBar.getProgress()+"/100");
+        }
         TextView sendRate = (TextView) convertView.findViewById(R.id.seek_bar_send);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarNum.setText(String.valueOf(progress)+"/100");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         sendRate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
