@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class CorruptionFragment extends Fragment implements View.OnClickListener {
 
     View mCorruptionView;
     View mCorruptionSendButton;
 
+    public static ArrayList<CorruptionReport> corruptionList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -47,7 +50,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
                     lectorName.setText("");
                     corruptionReport.setReportText(corruptionText.getText().toString());
                     corruptionText.setText("");
-
+                    corruptionList.add(corruptionReport);
                 } else {
                     corruptionText.requestFocus();
                     Toast.makeText(getActivity(), "Corruption text field is too short!",

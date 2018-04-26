@@ -53,7 +53,7 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
         {
             seekBarNum.setText(seekBar.getProgress()+"/100");
         }
-        TextView sendRate = (TextView) convertView.findViewById(R.id.seek_bar_send);
+        TextView sendEvaluation = (TextView) convertView.findViewById(R.id.seek_bar_send);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -71,7 +71,7 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
             }
         });
 
-        sendRate.setOnClickListener(new View.OnClickListener(){
+        sendEvaluation.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 

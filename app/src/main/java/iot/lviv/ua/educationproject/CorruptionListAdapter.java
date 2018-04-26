@@ -34,7 +34,9 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_corruption, parent,
             false);
             viewHolder.lectorName = (TextView) convertView.findViewById(R.id.item_corruption_lector);
+            viewHolder.lectorName.setText(CorruptionFragment.corruptionList.get(position).getLecturerName());
             viewHolder.corruptionText = (TextView) convertView.findViewById(R.id.item_corruption_text);
+            viewHolder.corruptionText.setText(CorruptionFragment.corruptionList.get(position).getReportText());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
