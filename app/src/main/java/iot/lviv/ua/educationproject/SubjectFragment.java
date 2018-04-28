@@ -35,9 +35,9 @@ public class SubjectFragment extends Fragment implements View.OnClickListener {
          //TODO: add subjects from Firebase and delete this template
          Subject subject1 = new Subject();
          Subject subject2 = new Subject();
-         subject1.setName("Math Analysis");
+         subject1.setName(getString(R.string.math_analysis));
          subjectList.add(subject1);
-         subject2.setName("Physics");
+         subject2.setName(getString(R.string.physics));
          subjectList.add(subject2);
      }
 

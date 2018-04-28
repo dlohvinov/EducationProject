@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_sign_out">Выход</string>
+
+    <string name="registration_greeting">One more step…</string>
+    <string name="subjects">Предметы</string>
+    <string name="Rates">Создать опрос</string>
+    <string name="timetable">Расписание</string>
+    <string name="corruption">Корупция</string>
+    <string name="corruption_list">Корупция(Список)</string>
+    <string name="physics">Физика</string>
+    <string name="math_analysis">Матанализ</string>
+
+    <string-array name="group_list">
+        <item>ИВ-11</item>
+        <item>ИВ-12</item>
+        <item>ИВ-13</item>
+        <item>ИВ-21</item>
+        <item>ИВ-22</item>
+    </string-array>
+</resources>
