@@ -15,6 +15,14 @@ public class Evaluation {
     public Evaluation() {
     }
 
+    public Evaluation(int subjectId, int studentId, int lectureEvaluation, int practiceEvaluation, int laboratoryEvaluation) {
+        this.subjectId = subjectId;
+        this.studentId = studentId;
+        this.lectureEvaluation = lectureEvaluation;
+        this.practiceEvaluation = practiceEvaluation;
+        this.laboratoryEvaluation = laboratoryEvaluation;
+    }
+
     public int getSubjectId() {
         return subjectId;
     }

@@ -10,7 +10,30 @@ import java.util.Calendar;
 
 public class Util {
 
-    public static String getDateAndTime(){
+    public static String getTime(){
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
+
+        String hour = String.valueOf(today.hour);
+        String minute = String.valueOf(today.minute);
+        String second = String.valueOf(today.second);
+
+        if (hour.length() < 2){
+            hour = "0" + hour;
+        }
+        if (minute.length() < 2){
+            minute = "0" + minute;
+        }
+        if (second.length() < 2){
+            second = "0" + second;
+        }
+
+        String time = hour + ":" + minute + ":" + second;
+
+        return time;
+    }
+
+    public static String getDate(){
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
         String day = String.valueOf(today.monthDay);
@@ -21,9 +44,8 @@ public class Util {
         if (month.length() < 2){
             month = "0" + month;
         }
-        String dateAndTime = day + "." + month + "." + today.year + " " + today.hour
-                + ":" + today.minute + ":" + today.second;
+        String date = day + "." + month + "." + today.year;
 
-        return dateAndTime;
+        return date;
     }
 }

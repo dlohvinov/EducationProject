@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,9 +22,11 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -46,7 +49,21 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FirebaseManager.getInstance().loadDataBase(); //Цей метод потрібен на деякий час
+        FirebaseManager.getInstance().sendEvaluation(new Evaluation(1, 1, 80, 80, 80));
+        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good"));
+
+        FirebaseManager.getInstance().loadDataBase(new FirebaseManager.Callback<Evaluation>() {
+            @Override
+            public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
+                Log.d("my_log", evaluationList.get(0).getStudentId() + " " + corruptionReportList.get(0).getDataAndTime());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mUserManager = UserManager.getInstance();

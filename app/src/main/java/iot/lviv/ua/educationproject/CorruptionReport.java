@@ -1,14 +1,20 @@
 package iot.lviv.ua.educationproject;
 
-/**
- * Created by Daniil on 3/26/2018.
- */
-
-    public class CorruptionReport {
+public class CorruptionReport {
     private String studentName;
     private String lecturerName;
     private String reportText;
     private String dataAndTime;
+
+    public CorruptionReport() {
+    }
+
+    public CorruptionReport(String studentName, String lecturerName, String reportText) {
+        this.studentName = studentName;
+        this.lecturerName = lecturerName;
+        this.reportText = reportText;
+        this.dataAndTime = Util.getDate() + " " +  Util.getTime();
+    }
 
     public String getStudentName() {
         return studentName;
@@ -42,3 +48,4 @@ package iot.lviv.ua.educationproject;
         this.dataAndTime = dataAndTime;
     }
 }
+
