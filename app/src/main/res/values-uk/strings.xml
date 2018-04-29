@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Налаштування</string>
+    <string name="action_sign_out">Вихід</string>
+
+    <string name="registration_greeting">One more step…</string>
+    <string name="subjects">Предмети</string>
+    <string name="Rates">Опитування</string>
+    <string name="timetable">Розклад</string>
+    <string name="corruption">Корупція</string>
+    <string name="corruption_list">Корупція(Список)</string>
+    <string name="physics">Фізика</string>
+    <string name="math_analysis">Матаналіз</string>
+
+    <string-array name="group_list">
+        <item>IP-11</item>
+        <item>IP-12</item>
+        <item>IP-13</item>
+        <item>IP-21</item>
+        <item>IP-22</item>
+    </string-array>
+</resources>

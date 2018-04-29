@@ -1,15 +1,17 @@
 package iot.lviv.ua.educationproject;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,13 +23,20 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private EditText nameEditText;
     private EditText emailEditText;
     private Spinner groupNumberSpinner;
-    private Button signUpButton;
+    private TextView signUpButton;
+    private CheckBox mEducatorRequest;
+    private SubjectFragment subjectFragment;
+    private FragmentManager mFragmentManager;
+    private UserManager mUserManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mFragmentManager = getFragmentManager();
+        mUserManager = UserManager.getInstance();
+
 
         regFragment = inflater.inflate(R.layout.registration_fragment, container, false);
 
@@ -36,6 +45,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         emailEditText = regFragment.findViewById(R.id.email_registration_edit_text);
         emailEditText.setText(mFirebaseUser.getEmail());
+
+        mEducatorRequest = regFragment.findViewById(R.id.educator_request_check_box);
 
         groupNumberSpinner = regFragment.findViewById(R.id.group_choose_spinner);
 
@@ -53,6 +64,19 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
+        if (mEducatorRequest.isChecked()) {
+            mUserManager.setCurrentUser(new Educator(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(), mFirebaseUser.getUid()));
 
+        } else {
+            mUserManager.setCurrentUser(new Student(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(),
+                    mFirebaseUser.getUid(), groupNumberSpinner.getSelectedItem().toString()));
+        }
+
+        mUserManager.pushUserToDatabase();
+
+        subjectFragment = new SubjectFragment();
+        mFragmentManager.beginTransaction().
+                replace(R.id.place_holder, subjectFragment)
+                .commit();
     }
 }

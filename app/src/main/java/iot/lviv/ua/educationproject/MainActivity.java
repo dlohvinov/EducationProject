@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity
         mUserManager = UserManager.getInstance();
         fragmentManager = getFragmentManager();
 
-        subjectFragment = new SubjectFragment();
-        fragmentManager.beginTransaction().replace(R.id.place_holder, subjectFragment)
-                .addToBackStack(null).commit();
+
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mAuthStateListener = (FirebaseAuth firebaseAuth) -> {
+        mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
                 //user is signed in
@@ -176,8 +174,8 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
-//                mUser = new User(mFirebaseUser.getDisplayName(), mFirebaseUser.getUid());
-//                mUserManager.pushStudentToDatabase(mUser);
+                RegistrationFragment registrationFragment = new RegistrationFragment();
+                fragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
