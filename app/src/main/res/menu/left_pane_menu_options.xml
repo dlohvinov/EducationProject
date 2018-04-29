@@ -6,22 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_subjects"
-            android:title="Предмети"
+            android:title="@string/subjects"
             android:icon="@drawable/online_learning"/>
         <item
             android:id="@+id/nav_elections"
-            android:title="Опитування"
+            android:title="@string/Rates"
             android:icon="@drawable/elections"/>
+
+        <item android:title="@string/timetable"
+            android:id="@+id/nav_timetable"
+            android:icon="@drawable/timetable_outline"
+            />
         <item
             android:id="@+id/nav_corruption"
-            android:title="Корупція"
+            android:title="@string/corruption"
             android:icon="@drawable/police"
             />
         <item
             android:id="@+id/nav_corruption_list"
-            android:title="Корупція(Список)"
+            android:title="@string/corruption_list"
             android:icon="@drawable/police"
             />
+
     </group>
 
     <item android:title="Other:">
