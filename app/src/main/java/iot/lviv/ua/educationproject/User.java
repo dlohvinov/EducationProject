@@ -3,11 +3,12 @@ package iot.lviv.ua.educationproject;
 public class User {
 
     private String dispayName;
-    private String uid;
+    private String email;
+    private boolean adminRequest;
     public User(){}
 
-    public User(String dispayName, String uid) {
-        this.dispayName = dispayName;
-        this.uid = uid;
+    public User(String displayName, String email) {
+        this.dispayName = displayName;
+        this.email = email;
     }
 }

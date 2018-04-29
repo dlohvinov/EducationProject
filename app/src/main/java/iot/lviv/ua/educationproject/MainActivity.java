@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mAuthStateListener = (FirebaseAuth firebaseAuth) -> {
+        mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
                 //user is signed in

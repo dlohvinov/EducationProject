@@ -4,18 +4,12 @@ public class Student extends User {
 
     private String numberOfGroup;
 
-    public Student(String displayName, String uid, String numberOfGroup) {
-        super(displayName, uid);
+    public Student(String displayName, String email, String numberOfGroup) {
+        super(displayName, email);
         this.numberOfGroup = numberOfGroup;
     }
 
     public String getNumberOfGroup() {
         return numberOfGroup;
     }
-
-    public void setNumberOfGroup(String numberOfGroup) {
-        this.numberOfGroup = numberOfGroup;
-    }
-
-
 }
