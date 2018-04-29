@@ -1,6 +1,8 @@
 package iot.lviv.ua.educationproject;
 
-public class Student extends User {
+import java.io.Serializable;
+
+public class Student extends User implements Serializable{
 
     private String numberOfGroup;
 
@@ -11,5 +13,9 @@ public class Student extends User {
 
     public String getNumberOfGroup() {
         return numberOfGroup;
+    }
+
+    public void setNumberOfGroup(String numberOfGroup) {
+        this.numberOfGroup = numberOfGroup;
     }
 }

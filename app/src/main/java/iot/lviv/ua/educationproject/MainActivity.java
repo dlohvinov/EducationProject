@@ -159,8 +159,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
                 RegistrationFragment registrationFragment = new RegistrationFragment();
                 fragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
-//                mUser = new User(mFirebaseUser.getDisplayName(), mFirebaseUser.getUid());
-//                mUserManager.pushStudentToDatabase(mUser);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
