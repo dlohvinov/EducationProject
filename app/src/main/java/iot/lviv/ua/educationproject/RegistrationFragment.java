@@ -65,11 +65,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
 
         if (mEducatorRequest.isChecked()) {
-            mUserManager.setCurrentUser(new Educator(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail()));
+            mUserManager.setCurrentUser(new Educator(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(), mFirebaseUser.getUid()));
 
         } else {
             mUserManager.setCurrentUser(new Student(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(),
-                    groupNumberSpinner.getSelectedItem().toString()));
+                    mFirebaseUser.getUid(), groupNumberSpinner.getSelectedItem().toString()));
         }
 
         mUserManager.pushUserToDatabase();

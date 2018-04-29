@@ -1,18 +1,20 @@
 package iot.lviv.ua.educationproject;
 
+
 import com.google.firebase.database.Exclude;
 
 public class User {
 
     private String dispayName;
-    @Exclude
     private String email;
+    private String uid;
     public User(){}
 
 
-    public User(String displayName, String email) {
+    public User(String displayName, String email, String uid) {
         this.dispayName = displayName;
         this.email = email;
+        this.uid = uid;
     }
 
     public String getDispayName() {
@@ -31,4 +33,12 @@ public class User {
         this.email = email;
     }
 
+    @Exclude
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 }

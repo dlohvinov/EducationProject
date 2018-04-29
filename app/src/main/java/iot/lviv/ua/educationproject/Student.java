@@ -6,8 +6,8 @@ public class Student extends User implements Serializable{
 
     private String numberOfGroup;
 
-    public Student(String displayName, String email, String numberOfGroup) {
-        super(displayName, email);
+    public Student(String displayName, String email, String uid, String numberOfGroup) {
+        super(displayName, email, uid);
         this.numberOfGroup = numberOfGroup;
     }
 

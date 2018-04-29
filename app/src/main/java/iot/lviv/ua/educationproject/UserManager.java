@@ -37,10 +37,10 @@ public class UserManager {
     public void pushUserToDatabase() {
         if (currentUser.getClass() == Student.class) {
             FirebaseManager.getInstance().getRootDatabaseReference().child("Users").child("Students")
-                    .push().setValue(currentUser);
+                    .child(currentUser.getUid()).setValue(currentUser);
         } else {
             FirebaseManager.getInstance().getRootDatabaseReference().child("Users").child("Cluster")
-                    .push().setValue(currentUser);
+                    .child(currentUser.getUid()).setValue(currentUser);
         }
     }
 }
