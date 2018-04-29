@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity
         mUserManager = UserManager.getInstance();
         fragmentManager = getFragmentManager();
 
-        subjectFragment = new SubjectFragment();
-        fragmentManager.beginTransaction().replace(R.id.place_holder, subjectFragment)
-                .addToBackStack(null).commit();
+
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -159,6 +157,8 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
+                RegistrationFragment registrationFragment = new RegistrationFragment();
+                fragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
 //                mUser = new User(mFirebaseUser.getDisplayName(), mFirebaseUser.getUid());
 //                mUserManager.pushStudentToDatabase(mUser);
             } else if (resultCode == RESULT_CANCELED) {
