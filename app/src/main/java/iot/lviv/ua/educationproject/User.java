@@ -8,8 +8,8 @@ public class User {
     private String dispayName;
     private String email;
     private String uid;
-    public User(){}
 
+    public User(){}
 
     public User(String displayName, String email, String uid) {
         this.dispayName = displayName;
@@ -36,9 +36,5 @@ public class User {
     @Exclude
     public String getUid() {
         return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 }

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DatabaseError;
 import com.squareup.picasso.Picasso;
 
@@ -34,13 +35,13 @@ public class MainActivity extends AppCompatActivity
 
     public final int RC_SIGN_IN = 1;
 
-    private User mUser;
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private FragmentManager fragmentManager;
-    private SubjectFragment subjectFragment;
+    private FragmentManager mFragmentManager;
+    private SubjectFragment mSubjectFragment;
     private UserManager mUserManager;
+    private FirebaseManager mFirebaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,11 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mUserManager = UserManager.getInstance();
-        fragmentManager = getFragmentManager();
+        mFragmentManager = getFragmentManager();
+        mFirebaseManager = FirebaseManager.getInstance();
+        mSubjectFragment = new SubjectFragment();
 
-
-
-
+        //TODO: remove floating action button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
@@ -82,8 +83,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //selecting navigation view and attaching listeners
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //opening list of subjects
+        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+                .addToBackStack(null).commit();
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
@@ -149,15 +155,15 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_corruption) {
             //starting CORRUPTION fragment
             CorruptionFragment corruptionFragment = new CorruptionFragment();
-            fragmentManager.beginTransaction().replace(R.id.place_holder, corruptionFragment)
+            mFragmentManager.beginTransaction().replace(R.id.place_holder, corruptionFragment)
                     .addToBackStack(null).commit();
         } else if (id == R.id.nav_corruption_list){
             CorruptionListFragment corruptionListFragment = new CorruptionListFragment();
-            fragmentManager.beginTransaction().replace(R.id.place_holder, corruptionListFragment)
+            mFragmentManager.beginTransaction().replace(R.id.place_holder, corruptionListFragment)
                     .addToBackStack(null).commit();
         } else if (id == R.id.nav_elections) {
         } else if (id == R.id.nav_subjects) {
-            fragmentManager.beginTransaction().replace(R.id.place_holder, subjectFragment)
+            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
                     .addToBackStack(null).commit();
         }
 
@@ -175,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
                 RegistrationFragment registrationFragment = new RegistrationFragment();
-                fragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
+                mFragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -210,7 +216,6 @@ public class MainActivity extends AppCompatActivity
             //Setting user avatar
             if (mFirebaseUser.getPhotoUrl() != null) {
                 ImageView avatar = findViewById(R.id.user_icon);
-//                avatar.setImageURI(mFirebaseUser.getPhotoUrl());
                 Context context = avatar.getContext();
                 Picasso.with(context).load(mFirebaseUser.getPhotoUrl()).into(avatar);
             }
@@ -224,5 +229,7 @@ public class MainActivity extends AppCompatActivity
             email.setText(mFirebaseUser.getEmail());
         }
     }
+
+
 
 }
