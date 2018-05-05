@@ -23,7 +23,10 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -177,9 +180,43 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
+
+                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Students")
+                        .orderByKey().equalTo(mFirebaseUser.getUid());
+                studentRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+                                    .addToBackStack(null).commit();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
+
+                Query educatorRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Cluster")
+                        .orderByKey().equalTo(mFirebaseUser.getUid());
+
+                educatorRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+                                    .addToBackStack(null).commit();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
+
                 RegistrationFragment registrationFragment = new RegistrationFragment();
                 mFragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
             } else if (resultCode == RESULT_CANCELED) {
@@ -188,7 +225,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         setNavHeader();
     }
