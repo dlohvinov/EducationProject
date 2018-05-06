@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity
                         if (dataSnapshot.exists()) {
                             mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
                                     .addToBackStack(null).commit();
+
                         }
                     }
 
