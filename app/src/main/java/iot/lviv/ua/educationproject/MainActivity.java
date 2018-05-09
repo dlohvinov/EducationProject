@@ -53,14 +53,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mUserManager = UserManager.getInstance();
+        mFragmentManager = getFragmentManager();
+        mFirebaseManager = FirebaseManager.getInstance();
+        mSubjectFragment = new SubjectFragment();
+
+
         FirebaseManager.getInstance().sendEvaluation(new Evaluation(1, 1, 80, 80, 80));
         FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good"));
 
-        FirebaseManager.getInstance().loadDataBase(new FirebaseManager.Callback<Evaluation>() {
+        mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
                 Log.d("my_log", evaluationList.get(0).getStudentId() + " " + corruptionReportList.get(0).getDataAndTime());
-
             }
 
             @Override
@@ -69,11 +75,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mUserManager = UserManager.getInstance();
-        mFragmentManager = getFragmentManager();
-        mFirebaseManager = FirebaseManager.getInstance();
-        mSubjectFragment = new SubjectFragment();
 
         //TODO: remove floating action button
         FloatingActionButton fab = findViewById(R.id.fab);
