@@ -8,6 +8,7 @@ public class User {
     private String dispayName;
     private String email;
     private String uid;
+    private String rights;
 
     public User(){}
 
@@ -36,5 +37,13 @@ public class User {
     @Exclude
     public String getUid() {
         return uid;
+    }
+
+    public String getRights() {
+        return rights;
+    }
+
+    public void setRights(String rights) {
+        this.rights = rights;
     }
 }

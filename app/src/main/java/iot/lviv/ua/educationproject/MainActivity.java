@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
 
-                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Students")
+                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
                         .orderByKey().equalTo(mFirebaseUser.getUid());
                 studentRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -196,22 +196,6 @@ public class MainActivity extends AppCompatActivity
                             mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
                                     .addToBackStack(null).commit();
 
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
-
-                Query educatorRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Cluster")
-                        .orderByKey().equalTo(mFirebaseUser.getUid());
-
-                educatorRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
-                                    .addToBackStack(null).commit();
                         }
                     }
 

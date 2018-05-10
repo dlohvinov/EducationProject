@@ -10,7 +10,8 @@ public class UserManager {
     private static UserManager userManager;
     private static User currentUser;
 
-    private UserManager(){}
+    private UserManager() {
+    }
 
     public static UserManager getInstance() {
         if (userManager == null) {
@@ -35,12 +36,7 @@ public class UserManager {
     }
 
     public void pushUserToDatabase() {
-        if (currentUser.getClass() == Student.class) {
-            FirebaseManager.getInstance().getRootDatabaseReference().child("Users").child("Students")
-                    .child(currentUser.getUid()).setValue(currentUser);
-        } else {
-            FirebaseManager.getInstance().getRootDatabaseReference().child("Users").child("Cluster")
-                    .child(currentUser.getUid()).setValue(currentUser);
-        }
+        FirebaseManager.getInstance().getRootDatabaseReference().child("Users")
+                .child(currentUser.getUid()).setValue(currentUser);
     }
 }
