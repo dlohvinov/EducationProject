@@ -53,14 +53,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mUserManager = UserManager.getInstance();
+        mFragmentManager = getFragmentManager();
+        mFirebaseManager = FirebaseManager.getInstance();
+        mSubjectFragment = new SubjectFragment();
+
+
         FirebaseManager.getInstance().sendEvaluation(new Evaluation(1, 1, 80, 80, 80));
         FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good"));
 
-        FirebaseManager.getInstance().loadDataBase(new FirebaseManager.Callback<Evaluation>() {
+        mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
                 Log.d("my_log", evaluationList.get(0).getStudentId() + " " + corruptionReportList.get(0).getDataAndTime());
-
             }
 
             @Override
@@ -68,17 +74,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mUserManager = UserManager.getInstance();
-        mFragmentManager = getFragmentManager();
-        mFirebaseManager = FirebaseManager.getInstance();
-        mSubjectFragment = new SubjectFragment();
-
-        //TODO: remove floating action button
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -186,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
 
-                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Students")
+                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
                         .orderByKey().equalTo(mFirebaseUser.getUid());
                 studentRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -195,22 +190,6 @@ public class MainActivity extends AppCompatActivity
                             mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
                                     .addToBackStack(null).commit();
 
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
-
-                Query educatorRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users").child("Cluster")
-                        .orderByKey().equalTo(mFirebaseUser.getUid());
-
-                educatorRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
-                                    .addToBackStack(null).commit();
                         }
                     }
 

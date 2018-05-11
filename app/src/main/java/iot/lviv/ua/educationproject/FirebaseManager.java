@@ -21,7 +21,6 @@ public class FirebaseManager {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private FirebaseManager() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -54,6 +53,7 @@ public class FirebaseManager {
     }
 
     public void loadDataBase(final Callback<Evaluation> callback){
+
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
