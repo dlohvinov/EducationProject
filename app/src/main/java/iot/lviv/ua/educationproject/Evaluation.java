@@ -5,29 +5,33 @@ package iot.lviv.ua.educationproject;
  */
 
 public class Evaluation {
-    private int subjectId;
+    private TypeOfClass subjectId;
     private int studentId;
-    private int lectureEvaluation;
-    private int practiceEvaluation;
-    private int laboratoryEvaluation;
-    //TODO: ADD A DATE
+    private float evaluation;
+    private String dateAndTime;
+
+   // private float lectureEvaluation;
+  //  private float practiceEvaluation;
+  //  private float laboratoryEvaluation;
 
     public Evaluation() {
     }
 
-    public Evaluation(int subjectId, int studentId, int lectureEvaluation, int practiceEvaluation, int laboratoryEvaluation) {
+    public Evaluation(TypeOfClass subjectId, int studentId, float evaluation) {
         this.subjectId = subjectId;
         this.studentId = studentId;
-        this.lectureEvaluation = lectureEvaluation;
-        this.practiceEvaluation = practiceEvaluation;
-        this.laboratoryEvaluation = laboratoryEvaluation;
+        this.evaluation = evaluation;
+        this.dateAndTime = Util.getDate() + " " + Util.getTime();
+      //  this.lectureEvaluation = lectureEvaluation;
+        //this.practiceEvaluation = practiceEvaluation;
+        //this.laboratoryEvaluation = laboratoryEvaluation;
     }
 
-    public int getSubjectId() {
+    public TypeOfClass getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(TypeOfClass subjectId) {
         this.subjectId = subjectId;
     }
 
@@ -39,27 +43,19 @@ public class Evaluation {
         this.studentId = studentId;
     }
 
-    public int getLectureEvaluation() {
-        return lectureEvaluation;
+    public float getEvaluation() {
+        return evaluation;
     }
 
-    public void setLectureEvaluation(int lectureEvaluation) {
-        this.lectureEvaluation = lectureEvaluation;
+    public void setEvaluation(float evaluation) {
+        this.evaluation = evaluation;
     }
 
-    public int getPracticeEvaluation() {
-        return practiceEvaluation;
+    public String getDateAndTime() {
+        return dateAndTime;
     }
 
-    public void setPracticeEvaluation(int practiceEvaluation) {
-        this.practiceEvaluation = practiceEvaluation;
-    }
-
-    public int getLaboratoryEvaluation() {
-        return laboratoryEvaluation;
-    }
-
-    public void setLaboratoryEvaluation(int laboratoryEvaluation) {
-        this.laboratoryEvaluation = laboratoryEvaluation;
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
 }

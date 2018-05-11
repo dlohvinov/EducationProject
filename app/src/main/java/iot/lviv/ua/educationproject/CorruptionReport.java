@@ -4,7 +4,7 @@ public class CorruptionReport {
     private String studentName;
     private String lecturerName;
     private String reportText;
-    private String dataAndTime;
+    private String dateAndTime;
 
     public CorruptionReport() {
     }
@@ -13,7 +13,7 @@ public class CorruptionReport {
         this.studentName = studentName;
         this.lecturerName = lecturerName;
         this.reportText = reportText;
-        this.dataAndTime = Util.getDate() + " " +  Util.getTime();
+        this.dateAndTime = Util.getDate() + " " + Util.getTime();
     }
 
     public String getStudentName() {
@@ -40,12 +40,12 @@ public class CorruptionReport {
         this.reportText = reportText;
     }
 
-    public String getDataAndTime() {
-        return dataAndTime;
+    public String getDateAndTime() {
+        return dateAndTime;
     }
 
-    public void setDataAndTime(String dataAndTime) {
-        this.dataAndTime = dataAndTime;
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
 }
 

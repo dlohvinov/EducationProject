@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private SubjectFragment mSubjectFragment;
     private UserManager mUserManager;
     private FirebaseManager mFirebaseManager;
+    SharedPreferencesManager sharedPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +61,37 @@ public class MainActivity extends AppCompatActivity
         mSubjectFragment = new SubjectFragment();
 
 
-        FirebaseManager.getInstance().sendEvaluation(new Evaluation(1, 1, 80, 80, 80));
-        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good"));
+        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.DISCRET_MATH_LECTURE, 2, 15));
+        sharedPreferencesManager = new SharedPreferencesManager(this);
+
+        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
 
         mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
-                Log.d("my_log", evaluationList.get(0).getStudentId() + " " + corruptionReportList.get(0).getDataAndTime());
-            }
+                Log.d("my_log", evaluationList.get(evaluationList.size()-1).getStudentId() + " "
+                        + corruptionReportList.get(corruptionReportList.size()-1).getDateAndTime());
+
+
+
+                sharedPreferencesManager.setAverageMark(TypeOfClass.DISCRET_MATH_LECTURE,
+                        Util.getAverageEvaluation(TypeOfClass.DISCRET_MATH_LECTURE, evaluationList));
+
+                Log.d("my_log", sharedPreferencesManager.getAverageMark(TypeOfClass.DISCRET_MATH_LECTURE) + "");
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mUserManager = UserManager.getInstance();
+        mFragmentManager = getFragmentManager();
+        mFirebaseManager = FirebaseManager.getInstance();
+        mSubjectFragment = new SubjectFragment();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

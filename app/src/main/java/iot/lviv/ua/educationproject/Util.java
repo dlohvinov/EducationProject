@@ -2,7 +2,7 @@ package iot.lviv.ua.educationproject;
 
 import android.text.format.Time;
 
-import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Volodymyr on 08.04.2018.
@@ -44,8 +44,23 @@ public class Util {
         if (month.length() < 2){
             month = "0" + month;
         }
-        String date = day + "." + month + "." + today.year;
+        String date = today.year + "." + month + "." + day;
 
         return date;
+    }
+
+    public static float getAverageEvaluation(TypeOfClass typeOfClass, List<Evaluation> evaluations){
+        float totalMark = 0;
+        float numberOfAverageEvaluation = 0;
+        for (Evaluation evaluation : evaluations) {
+            if (evaluation.getSubjectId() == typeOfClass){
+                numberOfAverageEvaluation++;
+                totalMark += evaluation.getEvaluation();
+            }
+
+        }
+        float averageMarkFor = totalMark/numberOfAverageEvaluation;
+
+        return averageMarkFor;
     }
 }
