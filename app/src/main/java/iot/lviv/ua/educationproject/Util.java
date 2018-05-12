@@ -2,6 +2,8 @@ package iot.lviv.ua.educationproject;
 
 import android.text.format.Time;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -53,7 +55,7 @@ public class Util {
         float totalMark = 0;
         float numberOfAverageEvaluation = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getSubjectId() == typeOfClass){
+            if (evaluation.getSubjectId().equals(typeOfClass)){
                 numberOfAverageEvaluation++;
                 totalMark += evaluation.getEvaluation();
             }
@@ -62,5 +64,15 @@ public class Util {
         float averageMarkFor = totalMark/numberOfAverageEvaluation;
 
         return averageMarkFor;
+    }
+
+    public static List<Evaluation> sortEvaluationsByDate(List<Evaluation> evaluations){
+        Collections.sort(evaluations, new Comparator<Evaluation>() {
+            @Override
+            public int compare(Evaluation o1, Evaluation o2) {
+                return o1.getDateAndTime().compareTo(o2.getDateAndTime());
+            }
+        });
+        return evaluations;
     }
 }
