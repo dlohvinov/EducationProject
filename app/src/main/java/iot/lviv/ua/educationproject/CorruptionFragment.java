@@ -42,7 +42,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
 
         if (studentName.getText().toString().length() > 0) {
             if (lectorName.getText().toString().length() > 0) {
-                if (corruptionText.getText().toString().length() > 0) {
+                if (corruptionText.getText().toString().length() > 80) {
 
                     corruptionReport.setStudentName(studentName.getText().toString());
                     studentName.setText("");

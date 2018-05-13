@@ -27,6 +27,8 @@ public class CorruptionLookFragment extends Fragment{
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        corruptionLookLectorName.setText("1");
+
+        corruptionLookLectorName.setText(CorruptionFragment.corruptionList.get
+                (CorruptionListAdapter.getPos()).getLecturerName());
     }
 }
