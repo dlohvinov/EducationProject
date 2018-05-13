@@ -1,6 +1,4 @@
 package iot.lviv.ua.educationproject;
-
-
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +21,6 @@ public class FirebaseManager {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-
-    List <Evaluation> evaluations = null;
 
     private FirebaseManager() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -44,36 +39,43 @@ public class FirebaseManager {
 
 
     public void sendCorruptionReport(CorruptionReport corruptionReport) {
-        mDatabaseReference = mFirebaseDatabase.getReference();
         mDatabaseReference.child("CorruptionReports").push().setValue(corruptionReport);
     }
 
-    public void sendEvaluation(Evaluation evaluation){
-        mDatabaseReference.child("Groups").child("Group").child("Evaluation").child("Period").push().setValue(evaluation);
+    public void sendEvaluation(Evaluation rate){
+        mDatabaseReference.child("Groups").child("Group").child("Evaluation").push().setValue(rate);
     }
 
-    public List<Evaluation> getEvaluations(){
 
-        if (evaluations == null){
-            return getEvaluations();
-        }else {
-            return evaluations;
-        }
+    public interface Callback<T>{
+        void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList);
+        void onCancelled(DatabaseError databaseError);
     }
 
-    public void loadDataBase(){
-        mDatabaseReference.child("Groups").child("Group").child("Evaluation").child("Period").addValueEventListener(new ValueEventListener() {
+    public void loadDataBase(final Callback<Evaluation> callback){
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                evaluations = new ArrayList<>();
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                List<Evaluation> rates = new ArrayList<>();
+                List<CorruptionReport> corruptionReports = new ArrayList<>();
+                for (DataSnapshot postSnapshot: snapshot.child("Groups").child("Group").
+                        child("Evaluation").getChildren()) {
                     Evaluation evaluation = postSnapshot.getValue(Evaluation.class);
-                    evaluations.add(evaluation);
+                    rates.add(evaluation);
+                }
+                for (DataSnapshot postSnapshot : snapshot.child("CorruptionReports").getChildren()) {
+                    CorruptionReport corruptionReport = postSnapshot.getValue(CorruptionReport.class);
+                    corruptionReports.add(corruptionReport);
+                }
+                if (callback != null) {
+                    callback.onSuccess(rates, corruptionReports);
                 }
             }
 
 
             public void onCancelled(DatabaseError databaseError) {
+                callback.onCancelled(databaseError);
                 Log.w("TAGGG", "Failed to read value.", databaseError.toException());
             }
 

@@ -6,9 +6,12 @@ package iot.lviv.ua.educationproject;
 
 public class UserManager {
 
-    private static UserManager userManager;
 
-    private UserManager(){}
+    private static UserManager userManager;
+    private static User currentUser;
+
+    private UserManager() {
+    }
 
     public static UserManager getInstance() {
         if (userManager == null) {
@@ -19,11 +22,21 @@ public class UserManager {
         }
     }
 
-    public void pushStudentToDatabase(Student student) {
-        FirebaseManager.getInstance().getRootDatabaseReference().push().child("Users").child("Students").setValue(student);
+    public User getCurrentUser() {
+        if (currentUser == null) {
+            currentUser = new User();
+            return currentUser;
+        } else {
+            return currentUser;
+        }
     }
 
-    public void pushEducatorToDatabase(Educator educator) {
-        FirebaseManager.getInstance().getRootDatabaseReference().push().child("Users").child("Cluster").setValue(educator);
+    public void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
+    public void pushUserToDatabase() {
+        FirebaseManager.getInstance().getRootDatabaseReference().child("Users")
+                .child(currentUser.getUid()).setValue(currentUser);
     }
 }

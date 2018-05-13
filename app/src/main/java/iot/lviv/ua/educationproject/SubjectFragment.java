@@ -41,6 +41,7 @@ public class SubjectFragment extends Fragment implements View.OnClickListener {
          Subject subject6 = new Subject();
          Subject subject7 = new Subject();
          Subject subject8 = new Subject();
+
          subject1.setName(getString(R.string.math_analysis));
          subjectList.add(subject1);
          subject2.setName(getString(R.string.physics));
