@@ -1,5 +1,7 @@
 package iot.lviv.ua.educationproject;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,7 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
     }
 
     public CorruptionListAdapter(Context context, ArrayList<CorruptionReport> corruptionReportList) {
-        super(context, R.layout.item_corruption, corruptionReportList);
+        super(context, R.layout.item_corruption_list, corruptionReportList);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
 
         if(convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_corruption, parent,
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_corruption_list, parent,
             false);
             viewHolder.lectorName = (TextView) convertView.findViewById(R.id.item_corruption_lector);
             viewHolder.lectorName.setText(CorruptionFragment.corruptionList.get(position).getLecturerName());
@@ -45,7 +47,10 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
         itemCorruption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CorruptionLookFragment corruptionLookFragment = new CorruptionLookFragment();
+                FragmentManager fragmentManager = ((Activity)getContext()).getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.place_holder,
+                        corruptionLookFragment).addToBackStack(null).commit();
             }
         });
 
