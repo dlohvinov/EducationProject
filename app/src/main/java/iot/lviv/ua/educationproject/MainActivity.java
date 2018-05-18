@@ -3,7 +3,9 @@ package iot.lviv.ua.educationproject;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,11 +31,14 @@ import com.squareup.picasso.Picasso;
 import java.util.Arrays;
 import java.util.List;
 
+import iot.lviv.ua.educationproject.databinding.ActivityNavigationDrawerBinding;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public final int RC_SIGN_IN = 1;
+    public final String CURRENT_USER_KEY = "CURRENT USER";
 
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mFirebaseAuth;
@@ -42,12 +47,20 @@ public class MainActivity extends AppCompatActivity
     private SubjectFragment mSubjectFragment;
     private UserManager mUserManager;
     private FirebaseManager mFirebaseManager;
-    SharedPreferencesManager sharedPreferencesManager;
+    private SharedPreferencesManager sharedPreferencesManager;
+    private ActivityNavigationDrawerBinding mBinding;
+    private Query mStudentRegistrationCheck;
+    private ValueEventListener mRegistrationEventListener;
+    private ValueEventListener mCurrentUserUpdateListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_drawer);
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+
+//        setContentView(R.layout.activity_navigation_drawer);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         mUserManager = UserManager.getInstance();
         mFragmentManager = getFragmentManager();
         mFirebaseManager = FirebaseManager.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mSubjectFragment = new SubjectFragment();
 
 
@@ -86,7 +100,41 @@ public class MainActivity extends AppCompatActivity
 
         });
 
+        mRegistrationEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+                            .addToBackStack(null).commit();
 
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        };
+
+        mCurrentUserUpdateListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                mUserManager.setCurrentUser(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        if (mUserManager.getCurrentUser() != null) {
+            Toast.makeText(this, "user is not null in um", Toast.LENGTH_SHORT).show();
+
+            mBinding.setUser(mUserManager.getCurrentUser());
+        }
+
+        //Setting the user avatar and email
+        setNavHeader();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,9 +142,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        setNavHeader();
         //selecting navigation view and attaching listeners
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_student);
         navigationView.setNavigationItemSelectedListener(this);
 
         //opening list of subjects
@@ -124,7 +171,6 @@ public class MainActivity extends AppCompatActivity
                         RC_SIGN_IN);
             }
         };
-
     }
 
     @Override
@@ -140,6 +186,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        Toast.makeText(this, "onCreateOptionsMenu", Toast.LENGTH_SHORT).show();
         getMenuInflater().inflate(R.menu.options_items, menu);
         return true;
     }
@@ -147,6 +194,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "onOptionsItemSelected", Toast.LENGTH_SHORT).show();
+
         switch (item.getItemId()) {
             case R.id.action_sign_out:
                 AuthUI.getInstance().signOut(this);
@@ -162,6 +211,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Toast.makeText(this, "onNavigationItemSelected", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
 
         if (id == R.id.nav_corruption) {
@@ -188,6 +238,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this, "onActicityResult", Toast.LENGTH_SHORT).show();
+
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
@@ -195,24 +247,13 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
 
-                Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
+                mStudentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
                         .orderByKey().equalTo(mFirebaseUser.getUid());
-                studentRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
-                                    .addToBackStack(null).commit();
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
+                mStudentRegistrationCheck.addListenerForSingleValueEvent(mRegistrationEventListener);
 
                 RegistrationFragment registrationFragment = new RegistrationFragment();
                 mFragmentManager.beginTransaction().replace(R.id.place_holder, registrationFragment).commit();
+                mBinding.setUser(UserManager.getInstance().getCurrentUser());
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -226,11 +267,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        Toast.makeText(this, "onActivityResult", Toast.LENGTH_SHORT).show();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
+        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
         super.onPause();
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
@@ -260,6 +303,28 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Toast.makeText(this, "onPostResume", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable(CURRENT_USER_KEY, mUserManager.getCurrentUser());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        User newUser = savedInstanceState.getParcelable(CURRENT_USER_KEY);
+        mUserManager.setCurrentUser(newUser);
+    }
 }

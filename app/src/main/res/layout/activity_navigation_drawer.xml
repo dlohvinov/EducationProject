@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+<layout>
 
-    <include
-        layout="@layout/app_bar_navigation_drawer"
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="user"
+            type="iot.lviv.ua.educationproject.User" />
+    </data>
+
+    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_navigation_drawer"
-        app:menu="@menu/left_pane_menu_options">
+        tools:openDrawer="start">
 
-        <RelativeLayout
+        <include
+            layout="@layout/app_bar_navigation_drawer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
+            android:layout_height="match_parent" />
 
-    </android.support.design.widget.NavigationView>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view_student"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_navigation_drawer"
+            app:menu="@menu/left_pane_menu_options"
+            android:visibility="@{user.isAllowed ? View.GONE: View.VISIBLE}">
+
+        </android.support.design.widget.NavigationView>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view_educator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_navigation_drawer"
+            app:menu="@menu/left_pane_menu_options_educator"
+            android:visibility="@{user.isAllowed ? View.VISIBLE: View.GONE}">
+
+        </android.support.design.widget.NavigationView>
 
 
-</android.support.v4.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>
+</layout>

@@ -48,12 +48,12 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
 
 
 
-        SeekBar seekBar = (SeekBar) convertView.findViewById(R.id.seek_bar_item_class);
-        TextView seekBarNum = (TextView) convertView.findViewById(R.id.seek_bar_num);
+        SeekBar seekBar = convertView.findViewById(R.id.seek_bar_item_class);
+        TextView seekBarNum = convertView.findViewById(R.id.seek_bar_num);
         {
             seekBarNum.setText(seekBar.getProgress()+"/100");
         }
-        TextView sendEvaluation = (TextView) convertView.findViewById(R.id.seek_bar_send);
+        TextView sendEvaluation = convertView.findViewById(R.id.seek_bar_send);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -71,18 +71,15 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
             }
         });
 
-        sendEvaluation.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        sendEvaluation.setOnClickListener(v -> {
 
-                switch (classType) {
-                    case LECTURE:
-                        Toast.makeText(getContext(), "wow", Toast.LENGTH_SHORT).show();
-                    case PRACTICE:
-                        Toast.makeText(getContext(), "such", Toast.LENGTH_SHORT).show();
-                    case LAB:
-                        Toast.makeText(getContext(), "goes", Toast.LENGTH_SHORT).show();
-                }
+            switch (classType) {
+                case LECTURE:
+                    Toast.makeText(getContext(), "wow", Toast.LENGTH_SHORT).show();
+                case PRACTICE:
+                    Toast.makeText(getContext(), "such", Toast.LENGTH_SHORT).show();
+                case LAB:
+                    Toast.makeText(getContext(), "goes", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class Student extends User {
 
-    public static final String STUDENT_TOKEN = "STUDENT";
-
     private String numberOfGroup;
 
 

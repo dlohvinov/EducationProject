@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
@@ -18,10 +17,11 @@
             android:id="@+id/nav_timetable"
             android:icon="@drawable/timetable_outline"
             android:title="@string/timetable" />
+
         <item
-            android:id="@+id/nav_corruption"
+            android:id="@+id/nav_corruption_list"
             android:icon="@drawable/police"
-            android:title="@string/corruption" />
+            android:title="@string/corruption_list" />
 
     </group>
 
