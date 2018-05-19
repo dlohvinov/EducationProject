@@ -1,6 +1,7 @@
 package iot.lviv.ua.educationproject;
 
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,10 +10,11 @@ import com.google.firebase.database.Exclude;
 
 public class User implements Parcelable {
 
-    private String dispayName;
+    private String displayName;
     private String email;
     private String uid;
     private String rights;
+    private Uri photoUri;
     private Boolean isAllowed;
 
     public static final String EDUCATOR_TOKEN = "EDUCATOR";
@@ -21,27 +23,55 @@ public class User implements Parcelable {
     public User(){}
 
     public User(String displayName, String email, String uid) {
-        this.dispayName = displayName;
+        this.displayName = displayName;
         this.email = email;
         this.uid = uid;
         this.isAllowed = false;
     }
 
     protected User(Parcel source) {
-        this.dispayName = source.readString();
+        this.displayName = source.readString();
         this.email = source.readString();
         this.uid = source.readString();
         this.rights = source.readString();
         this.isAllowed = source.readByte() != 0;
+        this.photoUri = ((Uri) source.readValue(Uri.class.getClassLoader()));
 
     }
 
-    public String getDispayName() {
-        return dispayName;
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[0];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setDispayName(String dispayName) {
-        this.dispayName = dispayName;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.displayName);
+        dest.writeString(this.email);
+        dest.writeString(this.rights);
+        dest.writeString(this.uid);
+        dest.writeByte((byte) (this.isAllowed ? 1 : 0));
+        dest.writeValue(this.photoUri);
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getEmail() {
@@ -69,29 +99,11 @@ public class User implements Parcelable {
         return isAllowed;
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[0];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public Uri getPhotoUri() {
+        return photoUri;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.dispayName);
-        dest.writeString(this.email);
-        dest.writeString(this.rights);
-        dest.writeString(this.uid);
-        dest.writeByte((byte) (this.isAllowed ? 1 : 0));
+    public void setPhotoUri(Uri photoUri) {
+        this.photoUri = photoUri;
     }
 }

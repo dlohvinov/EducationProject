@@ -1,6 +1,5 @@
 package iot.lviv.ua.educationproject;
 
-import java.io.Serializable;
 
 public class Student extends User {
 

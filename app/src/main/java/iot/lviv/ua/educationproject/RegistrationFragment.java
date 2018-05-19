@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
+        Log.d("RegistrationFragment", "onCreateView");
         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mFragmentManager = getFragmentManager();
         mUserManager = UserManager.getInstance();
@@ -64,8 +65,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
+        Log.d("RegistrationFragment", "onClick");
         if (mEducatorRequest.isChecked()) {
-            mUserManager.setCurrentUser(new Educator(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(), mFirebaseUser.getUid()));
+            Educator educator = new Educator(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(), mFirebaseUser.getUid());
+            educator.setPhotoUri(mFirebaseUser.getPhotoUrl());
+            mUserManager.setCurrentUser(educator);
 
         } else {
             mUserManager.setCurrentUser(new Student(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(),

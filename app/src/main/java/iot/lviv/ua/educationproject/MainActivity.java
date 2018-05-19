@@ -12,8 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onCreate");
 
 //        setContentView(R.layout.activity_navigation_drawer);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation_drawer);
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         if (mUserManager.getCurrentUser() != null) {
-            Toast.makeText(this, "user is not null in um", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "user not null in userman", Toast.LENGTH_SHORT).show();
 
             mBinding.setUser(mUserManager.getCurrentUser());
         }
@@ -150,14 +152,16 @@ public class MainActivity extends AppCompatActivity
 //        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
 //                .addToBackStack(null).commit();
 
+        Log.d("MainActivity", "before FirebaseAuth");
         mAuthStateListener = firebaseAuth -> {
+            Log.d("MainActivity", "firebaseAuthInvoked");
             mFirebaseUser = firebaseAuth.getCurrentUser();
             if (mFirebaseUser != null) {
                 //user is signed in
-                Toast.makeText(this, "You're signed in", Toast.LENGTH_SHORT).show();
+                Log.d("MainActivity", "user is signed in");
             } else {
                 // user is signed out
-                Toast.makeText(this, "You're signed out", Toast.LENGTH_SHORT).show();
+                Log.d("MainActivity", " user is signed out");
                 MainActivity.this.startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
@@ -186,7 +190,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Toast.makeText(this, "onCreateOptionsMenu", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.options_items, menu);
         return true;
     }
@@ -195,6 +199,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Toast.makeText(this, "onOptionsItemSelected", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onOptionsItemSelected");
 
         switch (item.getItemId()) {
             case R.id.action_sign_out:
@@ -211,7 +216,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Toast.makeText(this, "onNavigationItemSelected", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
 
         if (id == R.id.nav_corruption) {
@@ -238,15 +242,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(this, "onActicityResult", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onActivityResult");
 
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
-
+                Log.d("MainActivity", "RC_SIGN_IN");
                 mStudentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
                         .orderByKey().equalTo(mFirebaseUser.getUid());
                 mStudentRegistrationCheck.addListenerForSingleValueEvent(mRegistrationEventListener);
@@ -260,20 +263,19 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
         setNavHeader();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onActivityResult", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onResume");
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
-        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onPause");
         super.onPause();
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
@@ -282,15 +284,16 @@ public class MainActivity extends AppCompatActivity
      * method to set the appearence of navigation header
      */
     private void setNavHeader() {
-
+        Log.d("MainActivity", "setNavHeader");
+//        View navHeader = getLayoutInflater().inflate(R.layout.nav_header_navigation_drawer, thi);
         if (mFirebaseUser == null) {
             Toast.makeText(this, "No User", Toast.LENGTH_SHORT).show();
         } else {
             //Setting user avatar
-            if (mFirebaseUser.getPhotoUrl() != null) {
+            if (UserManager.getInstance().getCurrentUser().getPhotoUri() != null) {
                 ImageView avatar = findViewById(R.id.user_icon);
                 Context context = avatar.getContext();
-                Picasso.with(context).load(mFirebaseUser.getPhotoUrl()).into(avatar);
+                Picasso.with(context).load(UserManager.getInstance().getCurrentUser().getPhotoUri()).into(avatar);
             }
 
             //Setting user name
@@ -306,24 +309,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Toast.makeText(this, "onPostResume", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onPostResume");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity", "onRestart");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+        Log.d("MainActivity", "onSaveInstanceState");
         outState.putParcelable(CURRENT_USER_KEY, mUserManager.getCurrentUser());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        Log.d("MainActivity", "onRestoreInstanceState");
         User newUser = savedInstanceState.getParcelable(CURRENT_USER_KEY);
         mUserManager.setCurrentUser(newUser);
     }
