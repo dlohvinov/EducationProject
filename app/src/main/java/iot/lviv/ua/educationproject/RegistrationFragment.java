@@ -72,8 +72,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             mUserManager.setCurrentUser(educator);
 
         } else {
-            mUserManager.setCurrentUser(new Student(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(),
-                    mFirebaseUser.getUid(), groupNumberSpinner.getSelectedItem().toString()));
+            Student student = new Student(mFirebaseUser.getDisplayName(), mFirebaseUser.getEmail(),
+                    mFirebaseUser.getUid(), groupNumberSpinner.getSelectedItem().toString());
+            student.setPhotoUri(mFirebaseUser.getPhotoUrl());
+            mUserManager.setCurrentUser(student);
         }
 
         mUserManager.pushUserToDatabase();

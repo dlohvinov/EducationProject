@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "onCreate");
 
-//        setContentView(R.layout.activity_navigation_drawer);
+        setContentView(R.layout.activity_navigation_drawer);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -135,9 +135,6 @@ public class MainActivity extends AppCompatActivity
             mBinding.setUser(mUserManager.getCurrentUser());
         }
 
-        //Setting the user avatar and email
-        setNavHeader();
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -175,6 +172,9 @@ public class MainActivity extends AppCompatActivity
                         RC_SIGN_IN);
             }
         };
+
+        //Setting the user avatar and email
+        setNavHeader();
     }
 
     @Override
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             //Setting user avatar
             if (UserManager.getInstance().getCurrentUser().getPhotoUri() != null) {
-                ImageView avatar = findViewById(R.id.user_icon);
+                ImageView avatar = this.findViewById(R.id.user_icon);
                 Context context = avatar.getContext();
                 Picasso.with(context).load(UserManager.getInstance().getCurrentUser().getPhotoUri()).into(avatar);
             }
