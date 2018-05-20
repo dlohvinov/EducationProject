@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //opening list of subjects
-//        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
-//                .addToBackStack(null).commit();
+        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+                .addToBackStack(null).commit();
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();

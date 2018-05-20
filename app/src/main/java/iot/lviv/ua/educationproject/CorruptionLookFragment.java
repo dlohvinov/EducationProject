@@ -30,11 +30,11 @@ public class CorruptionLookFragment extends Fragment{
         TextView corruptionLookContacts = getActivity().findViewById
                 (R.id.corruption_look_fragment_contacts);
 
-        corruptionLookLectorName.setText(CorruptionFragment.corruptionList.get
+        corruptionLookLectorName.setText(CorruptionListFragment.corruptionReportList.get
                 (CorruptionListAdapter.getPos()).getLecturerName());
-        corruptionLookReportDescription.setText(CorruptionFragment.corruptionList.get
+        corruptionLookReportDescription.setText(CorruptionListFragment.corruptionReportList.get
                 (CorruptionListAdapter.getPos()).getReportText());
-        corruptionLookContacts.setText(CorruptionFragment.corruptionList.get
+        corruptionLookContacts.setText(CorruptionListFragment.corruptionReportList.get
                 (CorruptionListAdapter.getPos()).getStudentContacts());
     }
 }
