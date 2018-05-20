@@ -1,7 +1,7 @@
 package iot.lviv.ua.educationproject;
 
 public class CorruptionReport {
-    private String studentName;
+    private String studentContacts;
     private String lecturerName;
     private String reportText;
     private String dateAndTime;
@@ -9,19 +9,19 @@ public class CorruptionReport {
     public CorruptionReport() {
     }
 
-    public CorruptionReport(String studentName, String lecturerName, String reportText) {
-        this.studentName = studentName;
+    public CorruptionReport(String studentContacts, String lecturerName, String reportText) {
+        this.studentContacts = studentContacts;
         this.lecturerName = lecturerName;
         this.reportText = reportText;
         this.dateAndTime = Util.getDate() + " " + Util.getTime();
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getStudentContacts() {
+        return studentContacts;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setStudentContacts(String studentContacts) {
+        this.studentContacts = studentContacts;
     }
 
     public String getLecturerName() {

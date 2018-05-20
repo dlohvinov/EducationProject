@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity
         mSubjectFragment = new SubjectFragment();
 
 
-        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
+//        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
         sharedPreferencesManager = new SharedPreferencesManager(this);
 
-        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
+//        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
 
         mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
@@ -86,11 +86,7 @@ public class MainActivity extends AppCompatActivity
 
         });
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mUserManager = UserManager.getInstance();
-        mFragmentManager = getFragmentManager();
-        mFirebaseManager = FirebaseManager.getInstance();
-        mSubjectFragment = new SubjectFragment();
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,13 +94,14 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        setNavHeader();
         //selecting navigation view and attaching listeners
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //opening list of subjects
-        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
-                .addToBackStack(null).commit();
+//        mFragmentManager.beginTransaction().replace(R.id.place_holder, mSubjectFragment)
+//                .addToBackStack(null).commit();
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
