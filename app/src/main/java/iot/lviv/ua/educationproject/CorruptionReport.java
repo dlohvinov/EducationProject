@@ -5,6 +5,7 @@ public class CorruptionReport {
     private String lecturerName;
     private String reportText;
     private String dateAndTime;
+    private boolean show;
 
     public CorruptionReport() {
     }
@@ -14,6 +15,7 @@ public class CorruptionReport {
         this.lecturerName = lecturerName;
         this.reportText = reportText;
         this.dateAndTime = Util.getDate() + " " + Util.getTime();
+        this.show = false;
     }
 
     public String getStudentContacts() {
@@ -46,6 +48,14 @@ public class CorruptionReport {
 
     public void setDateAndTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 }
 

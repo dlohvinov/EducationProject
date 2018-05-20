@@ -58,17 +58,16 @@ public class MainActivity extends AppCompatActivity
         mFirebaseManager = FirebaseManager.getInstance();
         mSubjectFragment = new SubjectFragment();
 
-
-      //  FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
         sharedPreferencesManager = new SharedPreferencesManager(this);
 
-       // FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
+        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
+
+      //  FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
 
         mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
-               // Log.d("my_log", evaluationList.get(evaluationList.size()-1).getStudentId() + " "
-                      //  + corruptionReportList.get(corruptionReportList.size()-1).getDateAndTime());
+                Log.d("my_log", corruptionReportList.size() + "");
 
                 //sharedPreferencesManager.setAverageMark(TypeOfClass.ENGLISH_PRACTICE,
                   //      Util.getAverageEvaluation(TypeOfClass.ENGLISH_PRACTICE, evaluationList));

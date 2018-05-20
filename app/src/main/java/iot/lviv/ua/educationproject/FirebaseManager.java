@@ -1,4 +1,5 @@
 package iot.lviv.ua.educationproject;
+
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,13 +43,14 @@ public class FirebaseManager {
         mDatabaseReference.child("CorruptionReports").push().setValue(corruptionReport);
     }
 
-    public void sendEvaluation(Evaluation rate){
-        mDatabaseReference.child("Groups").child("Group").child("Evaluation").push().setValue(rate);
+    public void sendEvaluation(Evaluation evaluation) {
+        mDatabaseReference.child("Groups").child("Group").child("Evaluation").push().setValue(evaluation);
     }
 
 
-    public interface Callback<T>{
+    public interface Callback<T> {
         void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList);
+
         void onCancelled(DatabaseError databaseError);
     }
 
@@ -59,16 +61,17 @@ public class FirebaseManager {
             public void onDataChange(DataSnapshot snapshot) {
                 List<Evaluation> rates = new ArrayList<>();
                 List<CorruptionReport> corruptionReports = new ArrayList<>();
-                for (DataSnapshot postSnapshot: snapshot.child("Groups").child("Group").
+                for (DataSnapshot postSnapshot : snapshot.child("Groups").child("Group").
                         child("Evaluation").getChildren()) {
                     Evaluation evaluation = postSnapshot.getValue(Evaluation.class);
-                    if (evaluation.isShow()){
-                        rates.add(evaluation);
-                    }
+                    rates.add(evaluation);
                 }
                 for (DataSnapshot postSnapshot : snapshot.child("CorruptionReports").getChildren()) {
                     CorruptionReport corruptionReport = postSnapshot.getValue(CorruptionReport.class);
-                    corruptionReports.add(corruptionReport);
+                    if (corruptionReport.isShow()) {
+                        corruptionReports.add(corruptionReport);
+                    }
+
                 }
                 if (callback != null) {
                     callback.onSuccess(rates, corruptionReports);
