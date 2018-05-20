@@ -62,7 +62,9 @@ public class FirebaseManager {
                 for (DataSnapshot postSnapshot: snapshot.child("Groups").child("Group").
                         child("Evaluation").getChildren()) {
                     Evaluation evaluation = postSnapshot.getValue(Evaluation.class);
-                    rates.add(evaluation);
+                    if (evaluation.isShow()){
+                        rates.add(evaluation);
+                    }
                 }
                 for (DataSnapshot postSnapshot : snapshot.child("CorruptionReports").getChildren()) {
                     CorruptionReport corruptionReport = postSnapshot.getValue(CorruptionReport.class);

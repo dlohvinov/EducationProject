@@ -9,10 +9,7 @@ public class Evaluation {
     private int studentId;
     private float evaluation;
     private String dateAndTime;
-
-   // private float lectureEvaluation;
-  //  private float practiceEvaluation;
-  //  private float laboratoryEvaluation;
+    private boolean show;
 
     public Evaluation() {
     }
@@ -22,9 +19,7 @@ public class Evaluation {
         this.studentId = studentId;
         this.evaluation = evaluation;
         this.dateAndTime = Util.getDate() + " " + Util.getTime();
-      //  this.lectureEvaluation = lectureEvaluation;
-        //this.practiceEvaluation = practiceEvaluation;
-        //this.laboratoryEvaluation = laboratoryEvaluation;
+        this.show = true;
     }
 
     public TypeOfClass getSubjectId() {
@@ -57,5 +52,13 @@ public class Evaluation {
 
     public void setDateAndTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 }

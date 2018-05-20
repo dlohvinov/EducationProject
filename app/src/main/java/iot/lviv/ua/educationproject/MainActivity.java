@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -58,16 +59,16 @@ public class MainActivity extends AppCompatActivity
         mSubjectFragment = new SubjectFragment();
 
 
-//        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
+      //  FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
         sharedPreferencesManager = new SharedPreferencesManager(this);
 
-//        FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
+       // FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
 
         mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
                // Log.d("my_log", evaluationList.get(evaluationList.size()-1).getStudentId() + " "
-                    //    + corruptionReportList.get(corruptionReportList.size()-1).getDateAndTime());
+                      //  + corruptionReportList.get(corruptionReportList.size()-1).getDateAndTime());
 
                 //sharedPreferencesManager.setAverageMark(TypeOfClass.ENGLISH_PRACTICE,
                   //      Util.getAverageEvaluation(TypeOfClass.ENGLISH_PRACTICE, evaluationList));
