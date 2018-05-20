@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daniil on 4/25/2018.
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class CorruptionListFragment extends Fragment implements View.OnClickListener {
 
     View mCorruptionListView;
+    static ArrayList<CorruptionReport> corruptionReportList = new ArrayList<CorruptionReport>();
 
     @Nullable
     @Override
@@ -28,23 +32,34 @@ public class CorruptionListFragment extends Fragment implements View.OnClickList
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        ArrayList<CorruptionReport> corruptionReportList = new ArrayList<CorruptionReport>();
+
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
+            @Override
+            public void onSuccess(List<Evaluation> evaluationList,
+                                  List<CorruptionReport> corruptionReports) {
+                if (corruptionReportList.isEmpty()) {
+                    CorruptionListFragment.corruptionReportList.addAll(corruptionReports);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        
         CorruptionListAdapter corruptionListAdapter = new CorruptionListAdapter(getActivity(),
-                CorruptionFragment.corruptionList);
+                CorruptionListFragment.corruptionReportList);
 
         ListView corruptionListListView = (ListView) view.findViewById(R.id.fragment_corruption_list);
         corruptionListListView.setAdapter(corruptionListAdapter);
-
-//        for (int i = 0; i < CorruptionFragment.corruptionList.size(); i++) {
-//            TextView lectorName = (TextView) view.findViewById(R.id.item_corruption_lector);
-//            lectorName.setText(CorruptionFragment.corruptionList.get(i).getLecturerName());
-//            TextView textCorruption = (TextView) view.findViewById(R.id.item_corruption_text);
-//            textCorruption.setText(CorruptionFragment.corruptionList.get(i).getReportText());
-//        }
     }
 
     @Override
     public void onClick(View v) {
 
     }
+
+
 }

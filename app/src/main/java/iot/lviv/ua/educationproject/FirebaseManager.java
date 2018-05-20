@@ -52,7 +52,7 @@ public class FirebaseManager {
         void onCancelled(DatabaseError databaseError);
     }
 
-    public void loadDataBase(final Callback<Evaluation> callback){
+    public void loadDataBase(final Callback<Evaluation> callback) {
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

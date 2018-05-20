@@ -16,12 +16,10 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
     View mCorruptionView;
     View mCorruptionSendButton;
 
-    public static ArrayList<CorruptionReport> corruptionList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         mCorruptionView = inflater.inflate(R.layout.fragment_corruption, container, false);
         mCorruptionSendButton = mCorruptionView.findViewById(R.id.corruption_send_button);
 
@@ -33,6 +31,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
 
         EditText studentName = mCorruptionView.findViewById(R.id.corruption_student);
         EditText lectorName = mCorruptionView.findViewById(R.id.corruption_lector);
@@ -50,7 +49,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
                     lectorName.setText("");
                     corruptionReport.setReportText(corruptionText.getText().toString());
                     corruptionText.setText("");
-                    corruptionList.add(corruptionReport);
+                    firebaseManager.sendCorruptionReport(corruptionReport);
                 } else {
                     corruptionText.requestFocus();
                     Toast.makeText(getActivity(), "Corruption text field is too short!",

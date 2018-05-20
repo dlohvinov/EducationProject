@@ -11,7 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daniil on 4/25/2018.
@@ -31,6 +34,7 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         CorruptionReport corruptionReport = getItem(position);
         ViewHolder viewHolder;
 
@@ -39,9 +43,11 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_corruption_list, parent,
             false);
             viewHolder.lectorName = (TextView) convertView.findViewById(R.id.item_corruption_lector);
-            viewHolder.lectorName.setText(CorruptionFragment.corruptionList.get(position).getLecturerName());
+            viewHolder.lectorName.setText(CorruptionListFragment
+                    .corruptionReportList.get(position).getLecturerName());
             viewHolder.corruptionText = (TextView) convertView.findViewById(R.id.item_corruption_text);
-            viewHolder.corruptionText.setText(CorruptionFragment.corruptionList.get(position).getReportText());
+            viewHolder.corruptionText.setText(CorruptionListFragment
+                    .corruptionReportList.get(position).getReportText());
 
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
