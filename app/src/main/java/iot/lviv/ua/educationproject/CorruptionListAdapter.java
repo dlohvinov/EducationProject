@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by Daniil on 4/25/2018.
@@ -26,6 +28,7 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
     private static class ViewHolder {
         TextView lectorName;
         TextView corruptionText;
+        TextView corruptionDate;
     }
 
     public CorruptionListAdapter(Context context, ArrayList<CorruptionReport> corruptionReportList) {
@@ -35,13 +38,18 @@ public class CorruptionListAdapter extends ArrayAdapter<CorruptionReport> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
         CorruptionReport corruptionReport = getItem(position);
         ViewHolder viewHolder;
+
 
         if(convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_corruption_list, parent,
             false);
+            viewHolder.corruptionDate = (TextView) convertView.findViewById(R.id.item_corruption_date);
+            viewHolder.corruptionDate.setText(CorruptionListFragment
+                    .corruptionReportList.get(position).getDateAndTime());
             viewHolder.lectorName = (TextView) convertView.findViewById(R.id.item_corruption_lector);
             viewHolder.lectorName.setText(CorruptionListFragment
                     .corruptionReportList.get(position).getLecturerName());

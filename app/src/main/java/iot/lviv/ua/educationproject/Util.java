@@ -46,7 +46,7 @@ public class Util {
         if (month.length() < 2){
             month = "0" + month;
         }
-        String date = today.year + "." + month + "." + day;
+        String date = day + "." + month + "." + today.year;
 
         return date;
     }

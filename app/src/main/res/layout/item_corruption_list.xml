@@ -5,8 +5,18 @@
     <LinearLayout
         android:id="@+id/item_corruption"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/item_corruption_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd.mm.yyyy"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"/>
         <TextView
             android:id="@+id/item_corruption_lector"
             android:layout_width="wrap_content"
@@ -14,7 +24,9 @@
             android:text="lector's name"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_margin="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"/>
         <TextView
             android:id="@+id/item_corruption_text"
             android:layout_width="wrap_content"
