@@ -15,7 +15,7 @@ public class CorruptionReport {
         this.lecturerName = lecturerName;
         this.reportText = reportText;
         this.dateAndTime = Util.getDate() + " " + Util.getTime();
-        this.show = true;
+        this.show = false;
     }
 
     public String getStudentContacts() {

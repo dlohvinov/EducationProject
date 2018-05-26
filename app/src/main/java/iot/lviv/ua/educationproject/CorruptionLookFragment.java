@@ -22,6 +22,7 @@ public class CorruptionLookFragment extends Fragment{
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         TextView corruptionLookLectorName = getActivity().findViewById
                 (R.id.corruption_look_fragment_lector_name);
         TextView corruptionLookReportDescription = getActivity().findViewById

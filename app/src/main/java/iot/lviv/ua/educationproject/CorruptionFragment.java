@@ -42,14 +42,13 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
         if (studentName.getText().toString().length() > 0) {
             if (lectorName.getText().toString().length() > 0) {
                 if (corruptionText.getText().toString().length() > 0) {
+
                     corruptionReport.setStudentContacts(studentName.getText().toString());
                     studentName.setText("");
                     corruptionReport.setLecturerName(lectorName.getText().toString());
                     lectorName.setText("");
                     corruptionReport.setReportText(corruptionText.getText().toString());
                     corruptionText.setText("");
-                    corruptionReport.setDateAndTime(Util.getDate());
-                    corruptionReport.setShow(true);
                     firebaseManager.sendCorruptionReport(corruptionReport);
                 } else {
                     corruptionText.requestFocus();
