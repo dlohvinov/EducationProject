@@ -47,6 +47,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
                     lectorName.setText("");
                     corruptionReport.setReportText(corruptionText.getText().toString());
                     corruptionText.setText("");
+                    corruptionReport.setDateAndTime(Util.getDate());
                     corruptionReport.setVisibility(true);
                     firebaseManager.sendCorruptionReport(corruptionReport);
                 } else {
