@@ -1,0 +1,6 @@
+package iot.lviv.ua.educationproject;
+
+public enum Subjects {
+    ENGLISH, MATH_ANALYSIS, PHYSICS, DISCRET_MATH, UKRAINIAN, ALGO_AND_PROGRAMMING,
+    ELECTROTECHNICS_AND_ELECTRONICS;
+}

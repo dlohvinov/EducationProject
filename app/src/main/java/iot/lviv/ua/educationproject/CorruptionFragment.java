@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class CorruptionFragment extends Fragment implements View.OnClickListener {
 
     View mCorruptionView;
@@ -49,6 +47,7 @@ public class CorruptionFragment extends Fragment implements View.OnClickListener
                     lectorName.setText("");
                     corruptionReport.setReportText(corruptionText.getText().toString());
                     corruptionText.setText("");
+                    corruptionReport.setVisibility(true);
                     firebaseManager.sendCorruptionReport(corruptionReport);
                 } else {
                     corruptionText.requestFocus();

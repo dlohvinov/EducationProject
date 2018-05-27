@@ -68,7 +68,7 @@ public class FirebaseManager {
                 }
                 for (DataSnapshot postSnapshot : snapshot.child("CorruptionReports").getChildren()) {
                     CorruptionReport corruptionReport = postSnapshot.getValue(CorruptionReport.class);
-                    if (corruptionReport.isShow()) {
+                    if (corruptionReport.isVisibility()) {
                         corruptionReports.add(corruptionReport);
                     }
 
