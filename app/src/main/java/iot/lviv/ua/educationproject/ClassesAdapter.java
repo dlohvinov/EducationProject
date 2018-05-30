@@ -76,8 +76,8 @@ public class ClassesAdapter extends ArrayAdapter<Evaluation>{
             @Override
             public void onClick(View v) {
                 ClassFragment.getClassListFinal().get(position).setEvaluation(seekBar.getProgress());
-//                FirebaseManager firebaseManager = FirebaseManager.getInstance();
-//                firebaseManager.sendEvaluation(classList.get(position));
+                FirebaseManager firebaseManager = FirebaseManager.getInstance();
+                firebaseManager.sendEvaluation(ClassFragment.getClassListFinal().get(position));
 
 
 
