@@ -42,7 +42,7 @@ public class ClassFragment extends Fragment implements View.OnClickListener{
         mClassView = inflater.inflate(R.layout.fragment_classes, container, false);
 
         classListFinal.clear();
-        
+
         FirebaseManager firebaseManager = FirebaseManager.getInstance();
         firebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
             @Override
