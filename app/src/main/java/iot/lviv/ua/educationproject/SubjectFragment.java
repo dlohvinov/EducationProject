@@ -36,14 +36,13 @@ public class SubjectFragment extends Fragment implements View.OnClickListener {
         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //TODO: add subjects from Firebase and delete this template
-        Subject subject1 = new Subject(getString(R.string.math_analysis),"Mr.X",45);
-        Subject subject2 = new Subject(getString(R.string.physics),"Mr.X",100);
-        Subject subject3 = new Subject("English","Mr.X",0);
-        Subject subject4 = new Subject("Electrotechnics and Electronics","Mr.X",20);
-        Subject subject5 = new Subject("Programming pt. 2","Mr.X",45);
-        Subject subject6 = new Subject("Ukrainian","Mr.X",63);
-        Subject subject7 = new Subject("Discret Math","Mr.X",78);
-        Subject subject8 = new Subject("History","Mr.X",25);
+        Subject subject1 = new Subject(getString(R.string.math_analysis),"Mr.X",45, Subjects.MATH_ANALYSIS);
+        Subject subject2 = new Subject(getString(R.string.physics),"Mr.X",100, Subjects.PHYSICS);
+        Subject subject3 = new Subject("English","Mr.X",0, Subjects.ENGLISH);
+        Subject subject4 = new Subject("Electrotechnics and Electronics","Mr.X",20, Subjects.ELECTROTECHNICS_AND_ELECTRONICS);
+        Subject subject5 = new Subject("Programming pt. 2","Mr.X",45, Subjects.ALGO_AND_PROGRAMMING);
+        Subject subject6 = new Subject("Ukrainian","Mr.X",63, Subjects.UKRAINIAN);
+        Subject subject7 = new Subject("Discret Math","Mr.X",78, Subjects.DISCRET_MATH);
 
         subjectList.add(subject1);
         subjectList.add(subject2);
@@ -52,15 +51,18 @@ public class SubjectFragment extends Fragment implements View.OnClickListener {
         subjectList.add(subject5);
         subjectList.add(subject6);
         subjectList.add(subject7);
-        subjectList.add(subject8);
 
-        subjectRecyclerView.setAdapter(new SubjectRecyclerAdapter(subjectList, new SubjectRecyclerAdapter.MyRecyclerListener() {
+        subjectRecyclerView.setAdapter(new SubjectRecyclerAdapter(subjectList,
+                new SubjectRecyclerAdapter.MyRecyclerListener() {
             @Override
             public void onItemClick(int position) {
                 ClassFragment classFragment = new ClassFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.place_holder,
                         classFragment).addToBackStack(null).commit();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Subjects", subjectList.get(position).getId());
+                classFragment.setArguments(bundle);
             }
         }));
     }

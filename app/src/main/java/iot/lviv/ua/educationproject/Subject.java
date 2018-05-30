@@ -9,7 +9,7 @@ package iot.lviv.ua.educationproject;
 //Havent ended because of abscence of scale logic
 public class Subject {
     private String name;
-    private int id;
+    private Subjects id;
 
     public Subject() {
     }
@@ -18,10 +18,11 @@ public class Subject {
     private String lectorName;
     private int progress;
 
-    public Subject(String subjectName, String lectorName, int progress) {
+    public Subject(String subjectName, String lectorName, int progress, Subjects id) {
         this.subjectName = subjectName;
         this.lectorName = lectorName;
         this.progress = progress;
+        this.id = id;
     }
 
     public String getLectorName() {
@@ -37,11 +38,11 @@ public class Subject {
         return progress;
     }
 
-    public int getId() {
+    public Subjects getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Subjects id) {
         this.id = id;
     }
 

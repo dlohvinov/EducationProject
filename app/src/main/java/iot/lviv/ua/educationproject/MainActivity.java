@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
 
-        FirebaseManager.getInstance().sendEvaluation(new Evaluation(TypeOfClass.ENGLISH_PRACTICE, 2, 15));
-
       //  FirebaseManager.getInstance().sendCorruptionReport(new CorruptionReport("Volodymyr", "English", "Good")); // Для тестування
 
         mFirebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {

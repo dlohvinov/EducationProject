@@ -51,11 +51,11 @@ public class Util {
         return date;
     }
 
-    public static float getAverageEvaluation(TypeOfClass typeOfClass, List<Evaluation> evaluations){
+    public static float getAverageEvaluation(Subjects typeOfClass, List<Evaluation> evaluations){
         float totalMark = 0;
         float numberOfAverageEvaluation = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getSubjectId().equals(typeOfClass)){
+            if (evaluation.getTypeOfClass().equals(typeOfClass)){
                 numberOfAverageEvaluation++;
                 totalMark += evaluation.getEvaluation();
             }

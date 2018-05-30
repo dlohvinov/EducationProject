@@ -21,18 +21,19 @@ import java.util.ArrayList;
  */
 
 
-public class ClassesAdapter extends ArrayAdapter<ClassType>{
+public class ClassesAdapter extends ArrayAdapter<Evaluation>{
     private static class ViewHolder{
         TextView typeOfClass;
     }
 
-    public ClassesAdapter(Context context, ArrayList<ClassType> classList){
+    public ClassesAdapter(Context context, ArrayList<Evaluation> classList){
         super(context, R.layout.item_class, classList);
+
     }
 
-    @Override
+@Override
     public View getView(int position, View convertView, ViewGroup parent){
-        ClassType classType = getItem(position);
+        Evaluation evaluation = getItem(position);
         ViewHolder viewHolder;
 
         if (convertView == null){
@@ -44,7 +45,7 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.typeOfClass.setText(classType.toString().toLowerCase());
+        viewHolder.typeOfClass.setText(evaluation.getTypeOfClass().toString().toLowerCase());
 
 
 
@@ -74,15 +75,24 @@ public class ClassesAdapter extends ArrayAdapter<ClassType>{
         sendEvaluation.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                ClassFragment.getClassListFinal().get(position).setEvaluation(seekBar.getProgress());
+//                FirebaseManager firebaseManager = FirebaseManager.getInstance();
+//                firebaseManager.sendEvaluation(classList.get(position));
 
-                switch (classType) {
-                    case LECTURE:
-                        Toast.makeText(getContext(), "wow", Toast.LENGTH_SHORT).show();
-                    case PRACTICE:
-                        Toast.makeText(getContext(), "such", Toast.LENGTH_SHORT).show();
-                    case LAB:
-                        Toast.makeText(getContext(), "goes", Toast.LENGTH_SHORT).show();
-                }
+
+
+//                switch (classList.get(position).getSubjectId()) {
+//                    case MATH_ANALYSIS:
+//                        if (classList.get(position).getTypeOfClass()
+//                                .equals(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE)) {
+//                            Toast.makeText(getContext(), "wow", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                        else {
+//                            Toast.makeText(getContext(), "such code", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                }
             }
         });
 
