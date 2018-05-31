@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String uid;
     private String rights;
+    private boolean isAllowed;
 
     public User(){}
 
@@ -45,5 +46,9 @@ public class User {
 
     public void setRights(String rights) {
         this.rights = rights;
+    }
+
+    public boolean isAllowed() {
+        return isAllowed;
     }
 }

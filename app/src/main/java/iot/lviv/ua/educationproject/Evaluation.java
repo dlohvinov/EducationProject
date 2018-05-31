@@ -6,7 +6,7 @@ package iot.lviv.ua.educationproject;
 
 public class Evaluation {
     private TypeOfClass typeOfClass;
-    private User studentId;
+    private String  studentId;
     private float evaluation;
     private String dateAndTime;
     private Subjects subjectId;
@@ -14,7 +14,7 @@ public class Evaluation {
     public Evaluation() {
     }
 
-    public Evaluation(TypeOfClass typeOfClass, User studentId, float evaluation, Subjects subjectId) {
+    public Evaluation(TypeOfClass typeOfClass, String studentId, float evaluation, Subjects subjectId) {
         this.typeOfClass = typeOfClass;
         this.studentId = studentId;
         this.evaluation = evaluation;
@@ -30,11 +30,11 @@ public class Evaluation {
         this.typeOfClass = typeOfClass;
     }
 
-    public User getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(User studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

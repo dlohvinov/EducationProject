@@ -67,12 +67,7 @@ public class Util {
     }
 
     public static List<Evaluation> sortEvaluationsByDate(List<Evaluation> evaluations){
-        Collections.sort(evaluations, new Comparator<Evaluation>() {
-            @Override
-            public int compare(Evaluation o1, Evaluation o2) {
-                return o1.getDateAndTime().compareTo(o2.getDateAndTime());
-            }
-        });
+        Collections.sort(evaluations, (o1, o2) -> o1.getDateAndTime().compareTo(o2.getDateAndTime()));
         return evaluations;
     }
 }

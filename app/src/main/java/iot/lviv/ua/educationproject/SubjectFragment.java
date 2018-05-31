@@ -57,12 +57,13 @@ public class SubjectFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(int position) {
                 ClassFragment classFragment = new ClassFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.place_holder,
-                        classFragment).addToBackStack(null).commit();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Subjects", subjectList.get(position).getId());
                 classFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.place_holder,
+                        classFragment).addToBackStack(null).commit();
+
             }
         }));
     }
