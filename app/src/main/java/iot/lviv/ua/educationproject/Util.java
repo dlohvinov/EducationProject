@@ -3,7 +3,6 @@ package iot.lviv.ua.educationproject;
 import android.text.format.Time;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**

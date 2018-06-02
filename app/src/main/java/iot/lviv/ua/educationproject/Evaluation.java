@@ -7,14 +7,14 @@ package iot.lviv.ua.educationproject;
 public class Evaluation {
     private TypeOfClass typeOfClass;
     private String  studentId;
-    private float evaluation;
+    private int evaluation;
     private String dateAndTime;
     private Subjects subjectId;
 
     public Evaluation() {
     }
 
-    public Evaluation(TypeOfClass typeOfClass, String studentId, float evaluation, Subjects subjectId) {
+    public Evaluation(TypeOfClass typeOfClass, String studentId, int evaluation, Subjects subjectId) {
         this.typeOfClass = typeOfClass;
         this.studentId = studentId;
         this.evaluation = evaluation;
@@ -38,11 +38,11 @@ public class Evaluation {
         this.studentId = studentId;
     }
 
-    public float getEvaluation() {
+    public int getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(float evaluation) {
+    public void setEvaluation(int evaluation) {
         this.evaluation = evaluation;
     }
 

@@ -45,11 +45,12 @@ public class ClassesAdapter extends ArrayAdapter<Evaluation>{
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.typeOfClass.setText(evaluation.getTypeOfClass().toString().toLowerCase());
+//        viewHolder.typeOfClass.setText(evaluation.getTypeOfClass().toString().toLowerCase());
 
 
 
         SeekBar seekBar = (SeekBar) convertView.findViewById(R.id.seek_bar_item_class);
+        seekBar.setProgress(ClassFragment.getClassListFinal().get(position).getEvaluation());
         TextView seekBarNum = (TextView) convertView.findViewById(R.id.seek_bar_num);
         {
             seekBarNum.setText(seekBar.getProgress()+"/100");

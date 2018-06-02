@@ -32,9 +32,10 @@ public class FirebaseManager {
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mFirebaseAuth;
 
-    private Map <String, Object> sendMap = new HashMap<>();
+    private Map <String, Object> sendMap;
 
     private FirebaseManager() {
+        sendMap = new HashMap<>();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();

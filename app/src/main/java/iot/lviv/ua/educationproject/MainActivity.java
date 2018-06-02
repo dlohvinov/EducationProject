@@ -193,6 +193,9 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in", Toast.LENGTH_SHORT).show();
 
+                User user = new User(mFirebaseUser.getDisplayName(),
+                        mFirebaseUser.getEmail(), mFirebaseUser.getUid());
+                mUserManager.setCurrentUser(user);
                 Query studentRegistrationCheck = mFirebaseManager.getRootDatabaseReference().child("Users")
                         .orderByKey().equalTo(mFirebaseUser.getUid());
                 studentRegistrationCheck.addListenerForSingleValueEvent(new ValueEventListener() {

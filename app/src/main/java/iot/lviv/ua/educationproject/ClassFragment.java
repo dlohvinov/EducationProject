@@ -3,6 +3,7 @@ package iot.lviv.ua.educationproject;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,9 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
 //    private ArrayList <Evaluation> evaluations = new ArrayList<>();
 //    private ArrayList <Evaluation> classListByStudent = new ArrayList<>();
 //    private ArrayList <Evaluation> classListByDate = new ArrayList<>();
-//    private ArrayList <Evaluation> classListBySubject = new ArrayList<>();
-    private static ArrayList <Evaluation> mClassList = new ArrayList<>();
+    private ArrayList <Evaluation> classListBySubject = new ArrayList<>();
+    private ArrayList <Evaluation> mClassList = new ArrayList<>();
+    private static ArrayList <Evaluation> classListFinal = new ArrayList<>();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -44,13 +46,13 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState){
         mClassView = inflater.inflate(R.layout.fragment_classes, container, false);
         mClassList = new ArrayList<>();
-        mClassList.clear();
+        classListFinal.clear();
 
 //        DatabaseReference evalRef = FirebaseManager.getInstance().getRootDatabaseReference().child("Groups")
 //                .child("Group").child("Evaluation");
 //        Query evalQuery = evalRef.wh
-
-        CollectionReference users = db.collection("users");
+//
+//        CollectionReference users = db.collection("users");
 
 //        FirebaseManager firebaseManager = FirebaseManager.getInstance();
 //        firebaseManager.loadDataBase(new FirebaseManager.Callback<Evaluation>() {
@@ -69,11 +71,12 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = getArguments();
         Subjects subjects = (Subjects) bundle.getSerializable("Subjects");
 
+        String id = UserManager.getInstance().getCurrentUser().getUid();
         CollectionReference evalsRef = db.collection("Evaluations");
 
-        Query evalQuery = evalsRef.whereEqualTo("studentID", UserManager.getInstance().getCurrentUser().getUid())
-                .whereEqualTo("TypeOfClass", subjects.toString())
-                .orderBy("dateAndTime");
+        Query evalQuery = evalsRef.orderBy("dateAndTime").whereEqualTo("studentId", id);
+
+//                .whereEqualTo("TypeOfClass", subjects.toString())
 
         evalQuery.get().addOnCompleteListener(task -> {
             QuerySnapshot snapshot = task.getResult();
@@ -81,14 +84,67 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
             List<Evaluation> list = snapshot.toObjects(Evaluation.class);
 
             mClassList.addAll(list);
+
+
+            switch (subjects) {
+                case MATH_ANALYSIS:
+                    for(Evaluation evaluation : mClassList) {
+                        if (evaluation.getSubjectId().equals(Subjects.MATH_ANALYSIS)) {
+                            classListBySubject.add(evaluation);
+                        }
+                    }
+                    if (classListBySubject.isEmpty()) {
+                        Evaluation mathLectureEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE,
+                                UserManager.getInstance().getCurrentUser().getUid(), 20,
+                                Subjects.MATH_ANALYSIS);
+                        Evaluation mathPracticeEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_PRACTICE,
+                                UserManager.getInstance().getCurrentUser().getUid(), 30,
+                                Subjects.MATH_ANALYSIS);
+                        classListFinal.add(mathLectureEvaluation);
+                        classListFinal.add(mathPracticeEvaluation);
+                    }
+                    else if(classListBySubject.size() == 1) {
+                        if (classListBySubject.get(0).getTypeOfClass() == TypeOfClass
+                                .MATHEMATICAL_ANALYSIS_LECTURE) {
+                            Evaluation mathPracticeEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_PRACTICE,
+                                    UserManager.getInstance().getCurrentUser().getUid(), 0,
+                                    Subjects.MATH_ANALYSIS);
+                            classListFinal.add(mathPracticeEvaluation);
+                        }
+                        else {
+                            Evaluation mathLectureEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE,
+                                    UserManager.getInstance().getCurrentUser().getUid(), 0,
+                                    Subjects.MATH_ANALYSIS);
+                            classListFinal.add(mathLectureEvaluation);
+                        }
+                    }
+                    else{
+                        classListFinal.addAll(classListBySubject);
+                    }
+                case ELECTROTECHNICS_AND_ELECTRONICS:
+
+                case ALGO_AND_PROGRAMMING:
+
+                case DISCRET_MATH:
+
+                case UKRAINIAN:
+
+                case PHYSICS:
+
+                case ENGLISH:
+
+            }
+            classesAdapter = new ClassesAdapter(getActivity(), classListFinal);
+
+            classListView = getView().findViewById(R.id.class_list_view);
+            classListView.setAdapter(classesAdapter);
         });
 
-        if (mClassList.isEmpty()) {
-            Evaluation evaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE,
-                    UserManager.getInstance().getCurrentUser().getUid(), 0, subjects);
 
-            mClassList.add(evaluation);
-        }
+//        for (int i =0; i < 10000; i++) {
+//            Log.d("javascript is for gods", "so is Ukrainian");
+//        }
+
 
 //        for (int i = 0; i < evaluations.size(); i++) {
 //            if (UserManager.getInstance().getCurrentUser().equals(evaluations.get(i).getStudentId())){
@@ -99,63 +155,12 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
 //                Util.sortEvaluationsByDate(classListByStudent);
 
 
-//        switch (subjects) {
-//            case MATH_ANALYSIS:
-//                for(Evaluation evaluation : classListByDate) {
-//                    if (evaluation.getTypeOfClass().equals(Subjects.MATH_ANALYSIS)) {
-//                        classListBySubject.add(evaluation);
-//                    }
-//                }
-//                if (classListBySubject.isEmpty()) {
-//                    Evaluation mathLectureEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE,
-//                            UserManager.getInstance().getCurrentUser().getUid(), 0,
-//                            Subjects.MATH_ANALYSIS);
-//                    Evaluation mathPracticeEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_PRACTICE,
-//                            UserManager.getInstance().getCurrentUser().getUid(), 0,
-//                            Subjects.MATH_ANALYSIS);
-//                    classListFinal.add(mathLectureEvaluation);
-//                    classListFinal.add(mathPracticeEvaluation);
-//                }
-//                else if(classListBySubject.size() == 1) {
-//                    if (classListBySubject.get(0).getTypeOfClass() == TypeOfClass
-//                            .MATHEMATICAL_ANALYSIS_LECTURE) {
-//                        Evaluation mathPracticeEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_PRACTICE,
-//                                UserManager.getInstance().getCurrentUser().getUid(), 0,
-//                                Subjects.MATH_ANALYSIS);
-//                        classListFinal.add(mathPracticeEvaluation);
-//                    }
-//                    else {
-//                        Evaluation mathLectureEvaluation = new Evaluation(TypeOfClass.MATHEMATICAL_ANALYSIS_LECTURE,
-//                                UserManager.getInstance().getCurrentUser().getUid(), 0,
-//                                Subjects.MATH_ANALYSIS);
-//                        classListFinal.add(mathLectureEvaluation);
-//                    }
-//                }
-//                else{
-//                    classListFinal.addAll(classListBySubject);
-//                }
-//            case ELECTROTECHNICS_AND_ELECTRONICS:
-//
-//            case ALGO_AND_PROGRAMMING:
-//
-//            case DISCRET_MATH:
-//
-//            case UKRAINIAN:
-//
-//            case PHYSICS:
-//
-//            case ENGLISH:
-//
-//        }
+
         return mClassView;
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        classesAdapter = new ClassesAdapter(getActivity(), mClassList);
-
-        classListView = view.findViewById(R.id.class_list_view);
-        classListView.setAdapter(classesAdapter);
 
 
     }
@@ -166,6 +171,6 @@ public class ClassFragment extends Fragment implements View.OnClickListener {
     }
 
     public static ArrayList<Evaluation> getClassListFinal() {
-        return mClassList;
+        return classListFinal;
     }
 }
