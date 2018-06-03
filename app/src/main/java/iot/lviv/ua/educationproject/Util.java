@@ -50,19 +50,22 @@ public class Util {
         return date;
     }
 
-    public static float getAverageEvaluation(Subjects typeOfClass, List<Evaluation> evaluations){
+    public static float getAverageEvaluation(List<Evaluation> evaluations, Subjects subjects){
         float totalMark = 0;
         float numberOfAverageEvaluation = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getTypeOfClass().equals(typeOfClass)){
+            if (evaluation.getSubjectId().equals(subjects)){
                 numberOfAverageEvaluation++;
                 totalMark += evaluation.getEvaluation();
             }
 
         }
-        float averageMarkFor = totalMark/numberOfAverageEvaluation;
 
-        return averageMarkFor;
+        float averageMark = 0;
+        if (totalMark != 0){
+            averageMark = totalMark/numberOfAverageEvaluation;
+        }
+        return averageMark;
     }
 
     public static List<Evaluation> sortEvaluationsByDate(List<Evaluation> evaluations){

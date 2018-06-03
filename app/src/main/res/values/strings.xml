@@ -15,7 +15,6 @@
     <string name="corruption">Corruption</string>
     <string name="corruption_list">Corruption(list)</string>
     <string name="physics">Physics</string>
-    <string name="math_analysis">Math Analysis</string>
 
     <string-array name="group_list">
         <item>Iot-11</item>

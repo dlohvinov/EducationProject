@@ -1,7 +1,11 @@
 package iot.lviv.ua.educationproject;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Maksym Ivanov on 20/05/2018.
@@ -26,7 +31,7 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter {
                 .inflate(R.layout.item_subject, parent, false));
     }
 
-    public SubjectRecyclerAdapter(ArrayList<Subject> subjects,MyRecyclerListener listener) {
+    public SubjectRecyclerAdapter(ArrayList<Subject> subjects, MyRecyclerListener listener) {
         this.subjects = subjects;
         this.listener = listener;
     }
@@ -34,6 +39,7 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter {
     class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView subjectNameTv;
         TextView lectorNameTv;
+        TextView averageEvaluation;
         ProgressBar progressBar;
 
 
@@ -43,6 +49,7 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter {
             this.subjectNameTv = itemView.findViewById(R.id.subject_name);
             this.lectorNameTv = itemView.findViewById(R.id.lector_name);
             this.progressBar = itemView.findViewById(R.id.subjext_progress_bar);
+            this.averageEvaluation = itemView.findViewById(R.id.averageEvaluation);
         }
 
         @Override
@@ -55,11 +62,27 @@ public class SubjectRecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView lectorNameTv = ((MainViewHolder) holder).lectorNameTv;
         TextView subjectNameTv = ((MainViewHolder) holder).subjectNameTv;
+        TextView averageEvaluation = ((MainViewHolder) holder).averageEvaluation;
         ProgressBar progressBar = ((MainViewHolder) holder).progressBar;
+
+        progressBar.setProgress((int)subjects.get(position).getProgress());
+        PorterDuff.Mode progressBarMode = PorterDuff.Mode.SRC_IN;
+
+        Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+        if (subjects.get(position).getProgress() < 35){
+            progressDrawable.setColorFilter(Color.RED, progressBarMode);
+
+        }else if (subjects.get(position).getProgress() < 75){
+            progressDrawable.setColorFilter(Color.BLUE, progressBarMode);
+
+        }else {
+            progressDrawable.setColorFilter(Color.GREEN, progressBarMode);
+        }
+        progressBar.setProgressDrawable(progressDrawable);
 
         subjectNameTv.setText(subjects.get(position).getSubjectName());
         lectorNameTv.setText(subjects.get(position).getLectorName());
-        progressBar.setProgress(subjects.get(position).getProgress());
+        averageEvaluation.setText(subjects.get(position).getProgress() + "%");
     }
 
     @Override

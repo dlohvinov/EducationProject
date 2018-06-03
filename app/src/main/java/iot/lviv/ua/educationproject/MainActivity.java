@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private UserManager mUserManager;
     private FirebaseManager mFirebaseManager;
     SharedPreferencesManager sharedPreferencesManager;
+    public static List<Evaluation> evaluations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(List<Evaluation> evaluationList, List<CorruptionReport> corruptionReportList) {
                 Log.d("my_log", corruptionReportList.size() + "");
+                evaluations = evaluationList;
+                mSubjectFragment.updateProgressBars(evaluationList);
+
+
 
                 //sharedPreferencesManager.setAverageMark(TypeOfClass.ENGLISH_PRACTICE,
                   //      Util.getAverageEvaluation(TypeOfClass.ENGLISH_PRACTICE, evaluationList));

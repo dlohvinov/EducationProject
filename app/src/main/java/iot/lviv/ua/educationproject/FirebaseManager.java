@@ -86,7 +86,7 @@ public class FirebaseManager {
         mDatabaseReference.child("Groups").child("Group").child("Evaluation")
                 .push().setValue(evaluation);
 
-        sendMap.put("TypeOfClass", evaluation.getTypeOfClass().toString());
+        sendMap.put("TypeOfClass", evaluation.getSubjectId().toString());
 //        sendMap.put("studentId", evaluation.getStudentId());
         sendMap.put("evaluation", evaluation.getEvaluation());
         sendMap.put("dateAndTime", evaluation.getDateAndTime());

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_subject"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,21 +16,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:background="#fdfafa"
+            android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/subject_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="Матан"
-                android:layout_gravity="center_horizontal"
-                android:textAllCaps="true"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textAllCaps="false"
+                android:textColor="#09010e"
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/lector_name"
@@ -38,19 +41,30 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="Петров В.І."
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/averageEvaluation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="32%"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorLink="@color/colorPrimary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/subjext_progress_bar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="16dp" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="5dp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

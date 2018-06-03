@@ -16,9 +16,9 @@ public class Subject {
 
     private String subjectName;
     private String lectorName;
-    private int progress;
+    private float progress;
 
-    public Subject(String subjectName, String lectorName, int progress, Subjects id) {
+    public Subject(String subjectName, String lectorName, float progress, Subjects id) {
         this.subjectName = subjectName;
         this.lectorName = lectorName;
         this.progress = progress;
@@ -34,8 +34,12 @@ public class Subject {
     }
 
 
-    public int getProgress() {
+    public float getProgress() {
         return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
     }
 
     public Subjects getId() {
