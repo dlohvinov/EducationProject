@@ -45,7 +45,8 @@ public class ClassesAdapter extends ArrayAdapter<Evaluation>{
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        viewHolder.typeOfClass.setText(evaluation.getTypeOfClass().toString().toLowerCase());
+        viewHolder.typeOfClass.setText(ClassFragment.getClassListFinal().get(position)
+                .getTypeOfClass().toString().toLowerCase());
 
 
 
