@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity
                                         new AuthUI.IdpConfig.GoogleBuilder().build()))
                                 .setTosUrl("https://superapp.example.com/terms-of-service.html")
                                 .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                                .setTheme(R.style.LoginTheme)
+                                .setLogo(R.drawable.logo)
                                 .build(),
                         RC_SIGN_IN);
             }
